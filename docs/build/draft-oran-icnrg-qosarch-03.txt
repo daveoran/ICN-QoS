@@ -10,7 +10,7 @@ Expires: April 3, 2020
 
  Considerations in the development of a QoS Architecture for CCNx-like
                              ICN protocols
-                    draft-oran-icnrg-qosarch-latest
+                    draft-oran-icnrg-qosarch-03
 
 Abstract
 

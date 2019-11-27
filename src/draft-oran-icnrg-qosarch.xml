@@ -138,7 +138,7 @@
 	<c>End-to-end congestion control</c><c>Hop-by-hop congestion control</c>
 </texttable>
 
-<t>This document proposes specific design patterns to achieve both flow classification and differentiated QoS treatment for ICN on both a flow and aggregate basis. It also considers the effect of caches as a resource in addition to memory, CPU and link bandwidth that should be subject to explicitly unfair resource allocation. The proposed methods are intended to operate purely at the network layer, providing the primitives needed to achieve both transport and higher layer QoS objectives. It does not propose detailed protocol machinery to achieve these goals; it leaves these to supplementary specifications, such as <xref target="I-D.moiseenko-icnrg-flowclass"/>. It explicitly excludes any discussion of Quality of Experience (QoE) which can only be assessed and controlled at the application layer or above.</t>
+<t>This document proposes specific design patterns to achieve both flow classification and differentiated QoS treatment for ICN on both a flow and aggregate basis. It also considers the effect of caches as a resource in addition to memory, CPU and link bandwidth that should be subject to explicitly unfair resource allocation. The proposed methods are intended to operate purely at the network layer, providing the primitives needed to achieve both transport and higher layer QoS objectives. It does not propose detailed protocol machinery to achieve these goals; it leaves these to supplementary specifications, such as <xref target="I-D.moiseenko-icnrg-flowclass"/> and <xref target="I-D.anilj-icnrg-dnc-qos-icn"/>. It explicitly excludes any discussion of Quality of Experience (QoE) which can only be assessed and controlled at the application layer or above.</t>
 
 <t>Much of this document is derived from presentations the author has given at ICNRG meetings over the last few years that are available through the IETF datatracker (see, for example <xref target="Oran2018QoSslides"/>).</t>
 </section>
@@ -149,12 +149,12 @@
         document are to be interpreted as described in <xref target="RFC2119">RFC 2119</xref>.</t>
       </section>
 
-<section anchor="background" title="Some background on the nature and properties of Quality of Service in network protocols">
+<section anchor="background" title="Background on the nature and properties of Quality of Service in network protocols">
 <t>Much of this background material is tutorial and can be simply skipped by readers familiar with the long and checkered history of quality of service in packet networks. Other parts of it are polemical yet serve to illuminate the author's personal biases and technical views.</t>
 
 <t>All networking systems provide some degree of "quality of service" in that they exhibit non-zero utility when offered traffic to carry. The term therefore is used to describe systems that control the allocation of various resources in order to achieve <spanx>managed unfairness</spanx>.  Absent explicit mechanisms to decide what traffic to be unfair to, most systems try to achieve some form of "fairness" in the allocation of resources, optimizing the overall utility delivered to all demand under the constraint of available resources. 
 
-From this it should be obvious that you cannot use QoS mechanisms to create or otherwise increase resource capacity! In fact, all known QoS schemes have non-zero overhead and hence may (albeit slightly) decrease to total esources available to carry user traffic.</t>
+From this it should be obvious that you cannot use QoS mechanisms to create or otherwise increase resource capacity! In fact, all known QoS schemes have non-zero overhead and hence may (albeit slightly) decrease the total resources available to carry user traffic.</t>
 
 <t>Further, accumulated experience seems to indicate that QoS is helpful in a fairly narrow range of network conditions:
 <list style="symbols">
@@ -268,7 +268,7 @@ Another factor in the design and deployment of QoS is the scalability and scope 
 	</section>
 	
 	<section title="Topology interactions with QoS">
-	<t>In ICN, QoS is not pre-bound to topology since names are non-topological, unlike unicast IP addresses. This allows QoS to be applied to multi-destination and multi-path environments in a straightforward manner, rather than requiring either multicast with coarse class-based scheduling or complex signaling like that in RSVP-TE <xref target="RFC3209"/> that is needed to make point-to-multipoint MPLS work.</t>
+	<t>In ICN, QoS is not pre-bound to network topology since names are non-topological, unlike unicast IP addresses. This allows QoS to be applied to multi-destination and multi-path environments in a straightforward manner, rather than requiring either multicast with coarse class-based scheduling or complex signaling like that in RSVP-TE <xref target="RFC3209"/> that is needed to make point-to-multipoint MPLS work.</t>
 
 	<t>Because of IP's stateless forwarding model, complicated by the ubiquity of asymmetric routes, any flow-based QoS requires state that is decoupled from the actual arrival of traffic and hence must be maintained, at least as soft-state, even during quiescent periods. Intserv, for example, requires flow signaling with state O(#flows). ICN, even worst case, requires state O(#active interest/data exchanges), since state can be instantiated on arrival of an Interest, and removed lazily once the data hase been returned.</t>
 	</section>
@@ -286,7 +286,7 @@ Another factor in the design and deployment of QoS is the scalability and scope 
 	
 	<t>Stateless forwarding and asymmetric routing in IP limits available state/feedback to manage link resources. In contrast, NDN or CCNx forwarding allows all link resource allocation to occur as part of Interest forwarding, potentially simplifying things considerably. For example, with symmetric routing, producers have no control over the paths their data packets traverse, and hence any QoS treatments intended to influence routing paths from producer to consumer will have no effect.</t>
 
-	<t>One complication in the handling of ICN QoS treatments is not present in IP and hence worth mention. CCNx and NDN both perform <spanx>Interest aggregation</spanx> (See Section 2.3.2 of <xref target="RFC8569"/>). If an Interest arrives matching an existing PIT entry, but with a different QoS treatment from an Interest already forwarded, it can be tricky to decide whether or not to aggregate the interest or forward it, and how to keep track of the differing QoS treatments for the two Interests. Exploration of the details surrounding these situations is beyond the scope of this document; further discussion can be found for the general case of flow balance and congestion control in <xref target="I-D.oran-icnrg-flowbalance"/>, and specifically for QoS treatments in <xref target="I-D.anilj-icnrg-dnc-qos-icn"/>.</t>
+	<t>One complication in the handling of ICN QoS treatments is not present in IP and hence worth mention. CCNx and NDN both perform <spanx>Interest aggregation</spanx> (See Section 2.3.2 of <xref target="RFC8569"/>). If an Interest arrives matching an existing PIT entry, but with a different QoS treatment from an Interest already forwarded, it can be tricky to decide whether to aggregate the interest or forward it, and how to keep track of the differing QoS treatments for the two Interests. Exploration of the details surrounding these situations is beyond the scope of this document; further discussion can be found for the general case of flow balance and congestion control in <xref target="I-D.oran-icnrg-flowbalance"/>, and specifically for QoS treatments in <xref target="I-D.anilj-icnrg-dnc-qos-icn"/>.</t>
 	</section>
 	
 	<section title="ICN forwarding semantics effect on QoS">
@@ -311,13 +311,13 @@ Another factor in the design and deployment of QoS is the scalability and scope 
 
 <section anchor="principles" title="A strawman set of principles to guide QoS architecture for ICN">
 
-<t>Based on the observations made in the earlier sections, this summary section captures the author's ideas for clear and actionable architectural principals for how to incorporate QoS machinery into ICN protocols like NDN and CCNx. Hopefully, they can guide further work and focus effort on portions of the giant design space for QoS that have the best tradeoffs in terms of flexibility, simplicity, and deployability.</t>
+<t>Based on the observations made in the earlier sections, this summary section captures the author's ideas for clear and actionable architectural principles for how to incorporate QoS machinery into ICN protocols like NDN and CCNx. Hopefully, they can guide further work and focus effort on portions of the giant design space for QoS that have the best tradeoffs in terms of flexibility, simplicity, and deployability.</t>
 
 <t><spanx style="strong">Define equivalence classes using the name hierarchy rather than creating an independent traffic class definition</spanx>. This directly associates the specification of equivalence classes of traffic with the structure of the application namespace. It can allow hierarchical decomposition of equivalence classes in a natural way because of the way hierarchical ICN names are constructed. Two practical mechanisms are presented in <xref target="I-D.moiseenko-icnrg-flowclass"/> with different tradeoffs between security and the ability to aggregate flows. Either prefix-based (EC3) or explicit name component based (ECNT) or both could be adopted as the part of the QoS architecture for defining equivalence classes.</t>
 
-<t><spanx style="strong"> Put consumers in control of Link and Forwarding resource allocation</spanx>. Do all link buffering and forwarding (both memory and CPU) resource allocations based on Interest arrivals. This is attractive because it provides early congestion feedback to consumers, and allows scheduling the reverse link direction ahead of time for carrying the matching data. It makes enforcement of QoS treatments a single-ended rather than a double-ended problem and can avoid wasting resources on fetching data that will wind up dropped when it arrives at a bottleneck link.</t>
+<t><spanx style="strong"> Put consumers in control of Link and Forwarding resource allocation</spanx>. Do all link buffering and forwarding (both memory and CPU) resource allocations based on Interest arrivals. This is attractive because it provides early congestion feedback to consumers, and allows scheduling the reverse link direction ahead of time for carrying the matching data. It makes enforcement of QoS treatments a single-ended (i.e. at the consumer) rather than a double-ended problem and can avoid wasting resources on fetching data that will wind up dropped when it arrives at a bottleneck link.</t>
 
-<t><spanx style="strong">Allow producers to influence the allocation of of cache resources</spanx>. Producers want to affect caching decisions in order to:
+<t><spanx style="strong">Allow producers to influence the allocation of cache resources</spanx>. Producers want to affect caching decisions in order to:
 <list style="symbols">
 	<t>Shed load by having Interests served by content stores in forwarders before reaching the producer itself.</t>
 	<t>Survive transient outages of either the producer or links close to the producer.</t>
@@ -326,7 +326,7 @@ For caching to be effective, individual Data objects in an equivalence class nee
 
 <t>See <xref target="I-D.moiseenko-icnrg-flowclass"/> for specific mechanisms to achieve this.</t>
 
-<t><spanx style="strong">Allow consumers to influence the allocation of of cache resources</spanx>. Consumers want to affect caching decisions in order to:
+<t><spanx style="strong">Allow consumers to influence the allocation of cache resources</spanx>. Consumers want to affect caching decisions in order to:
 <list style="symbols">
 	<t>Reduce latency for retrieving data</t>
 	<t>Survive transient outages of either a producer or links close to the consumer</t>
@@ -343,7 +343,7 @@ Consumers can have indirect control over caching by specifying QoS treatments in
 
 <t>Besides utilizing cache resources to meet the QoS goals of individual producers and consumers, network operators also want to manage their cache resources in order to:
 <list style="symbols">
-	<t>Amerliorate congestion hotspots by reducing load converging on producers they host on their network.</t>
+	<t>Ameliorate congestion hotspots by reducing load converging on producers they host on their network.</t>
 	<t>Improve Interest satisfaction rates by utilizing caches as short-term retransmission buffers to recover from link errors or outages.</t>
 	<t>Improve both latency and reliability in environments when consumers move in the operator's topology.</t>
 </list>
@@ -351,7 +351,7 @@ Consumers can have indirect control over caching by specifying QoS treatments in
 
 <t><spanx style="strong">Re-think how to specify traffic treatments - don't just copy Diffserv</spanx>. Some of the Diffserv classes may form a good starting point, as their mapping onto queuing algorithms for managing link buffering are well understood. However, Diffserv alone does not allow one to express latency versus reliability tradeoffs or other useful QoS treatments. Nor does it permit "TSPEC"-style traffic descriptions as are allowed in a signaled QoS scheme. Here are some examples:
 <list style="symbols">
-	<t>A "burst" treatment, where an initial Interest gives an aggregate data size to request allocation of link capacity for a large burst of Interest/Data exchanges. The Interest can be rejected at any hop if the resources are not available. Such a treatment can also accomodate Data implosion produced by the discovery procedures of management protocols like <xref target="I-D.irtf-icnrg-ccninfo"/>.</t>
+	<t>A "burst" treatment, where an initial Interest gives an aggregate data size to request allocation of link capacity for a large burst of Interest/Data exchanges. The Interest can be rejected at any hop if the resources are not available. Such a treatment can also accommodate Data implosion produced by the discovery procedures of management protocols like <xref target="I-D.irtf-icnrg-ccninfo"/>.</t>
 	<t>A "reliable" treatment, which affects preference for allocation of PIT space for the Interest and Content Store space for the data in order to improve the robustness of IoT data delivery in constrained environment, as is described in <xref target="I-D.gundogan-icnrg-iotqos"/>.</t>
 	<t>A "search" treatment, which, within the specified Interest Lifetime, tries many paths either in parallel or serial to potentially many content sources, to maximize the probability that the requested item will be found. This is done at the expense of the extra bandwidth of both forwarding Interests and receiving multiple responses upstream of an aggregation point. The treatment can encode a value expressing tradeoffs like breadth-first versus depth-first search, and bounds on the total resource expenditure. Such a treatment would be useful for instrumentation protocols like <xref target="I-D.mastorakis-icnrg-icntraceroute"/>.</t>
 </list>
@@ -364,44 +364,44 @@ Consumers can have indirect control over caching by specifying QoS treatments in
 Consider anticipatory allocation for reverse traffic (e.g. phone-home interaction styles)
 -->
 
-<t><spanx style="strong">What about the richer QoS semantics available with INTServ-like traffic control?</spanx>. Basic QoS treatments such as those summarized above may not be adequate to cover the whole range of application utility functions and deployment environments we expect for ICN. While it is true that one does not necessarily need a separate signaling protocol like RSVP given the state carried in the ICN data plane by forwarders, there are some potentially important capabilities not provided by just simple QoS treatments applied to per- Interest/Data exchanges. INTserv's richer QoS capabilities may be of value, especially if they can be provided in ICN at lower complexity and protocol overhead than INTServ+RSVP.</t>
+	<section anchor="INTSERV" title="What about the richer QoS semantics available with INTServ-like traffic control?"> 
+		<t>Basic QoS treatments such as those summarized above may not be adequate to cover the whole range of application utility functions and deployment environments we expect for ICN. While it is true that one does not necessarily need a separate signaling protocol like RSVP given the state carried in the ICN data plane by forwarders, there are some potentially important capabilities not provided by just simple QoS treatments applied to per- Interest/Data exchanges. INTserv's richer QoS capabilities may be of value, especially if they can be provided in ICN at lower complexity and protocol overhead than INTServ+RSVP.</t>
 
-<t>There are three key capabilities missing from Diffserv-like QoS treatments, no matter how sophisticated they may be in describing the desired treatment for a given equivalence class of traffic. INTserv-like QoS provides all of these:
-<list style="numbers">
-	<t>The ability to <spanx style="strong">describe traffic flows</spanx> in a mathematically meaningful way. This is done through parameters like average rate, peak rate, and maximum burst size. The parameters are encapsulated in a data structure called a "TSPEC" which can be placed in whatever protocol needs the information (in the case of TCP/IP INTserv, this is RSVP).</t>
+		<t>There are three key capabilities missing from Diffserv-like QoS treatments, no matter how sophisticated they may be in describing the desired treatment for a given equivalence class of traffic. INTserv-like QoS provides all of these:
+		<list style="numbers">
+			<t>The ability to <spanx style="strong">describe traffic flows</spanx> in a mathematically meaningful way. This is done through parameters like average rate, peak rate, and maximum burst size. The parameters are encapsulated in a data structure called a "TSPEC" which can be placed in whatever protocol needs the information (in the case of TCP/IP INTserv, this is RSVP).</t>
 	
-	<t>The ability to perform <spanx style="strong">admission control</spanx>, where the element requesting the QoS treatment can know <spanx>before</spanx> introducing traffic whether the network elements have agreed to provide the requested traffic treatment. An important side-effect of providing this assurance is that the network elements install state that allows the forwarding and queuing machinery to police and shape the traffic in a way that provides a sufficient degree of <spanx>isolation</spanx> from the dynamic behavior of other traffic. Depending on the admission control mechanism, it may or may not be possible to explicitly release that state when the application no longer needs the QoS treatment.</t>
+			<t>The ability to perform <spanx style="strong">admission control</spanx>, where the element requesting the QoS treatment can know <spanx>before</spanx> introducing traffic whether the network elements have agreed to provide the requested traffic treatment. An important side-effect of providing this assurance is that the network elements install state that allows the forwarding and queuing machinery to police and shape the traffic in a way that provides a sufficient degree of <spanx>isolation</spanx> from the dynamic behavior of other traffic. Depending on the admission control mechanism, it may or may not be possible to explicitly release that state when the application no longer needs the QoS treatment.</t>
 	
-	<t>The permissable <spanx style="strong">degree of divergence</spanx> in the actual traffic handling from the requested handling. INTServ provided two choices here, the <spanx>controlled load</spanx> service and the <spanx>guaranteed</spanx> service. The former allows stochastic deviation equivalent to what one would experience on an unloaded path of a packet network. The latter conforms to the TSPEC deterministically, at the obvious expense of demanding extremely conservative resource allocation.</t>
-</list></t>
+			<t>The permissable <spanx style="strong">degree of divergence</spanx> in the actual traffic handling from the requested handling. INTServ provided two choices here, the <spanx>controlled load</spanx> service and the <spanx>guaranteed</spanx> service. The former allows stochastic deviation equivalent to what one would experience on an unloaded path of a packet network. The latter conforms to the TSPEC deterministically, at the obvious expense of demanding extremely conservative resource allocation.</t>
+		</list></t>
 
-<t>Given the limited applicability of these capabilities in today's Internet, the author does not take any position as to whether any of these INTserv-like capabilities are needed for ICN to be succesful. However, a few things seem important to consider. The following paragraphs speculate about the consequences to the CCNx or NDN protocol architectures of incorporating these features.</t>
+	<t>Given the limited applicability of these capabilities in today's Internet, the author does not take any position as to whether any of these INTserv-like capabilities are needed for ICN to be succesful. However, a few things seem important to consider. The following paragraphs speculate about the consequences to the CCNx or NDN protocol architectures of incorporating these features.</t>
 
-<t>Superficially, it would be quite straightforward to accommodate INTserv-equivalent traffic descriptions in CCNx or NDN. One could define a new TLV for the Interest message to carry a TSPEC. A forwarder encountering this, together with a QoS treatment request (e.g. as proposed in <xref target="qostreatments"/>) could associate the traffic specification with the corresponding equivalence class derived from the name in the Interest. This would allow the forwarder to create state that not only would apply to the returning Data for that Interest when being queued on the downstream interface, but be maintained as soft state across multiple Interest/Data exchanges to drive policing and shaping algorithms at per-flow granularity. The cost in Interest message overhead would be modest, however the complications associated with managing different traffic specifications in different Interests for the same equivalence class might be substantial. Of course, all the scalability considerations with maintaining per-flow state also come into play.</t>
+	<t>Superficially, it would be quite straightforward to accommodate INTserv-equivalent traffic descriptions in CCNx or NDN. One could define a new TLV for the Interest message to carry a TSPEC. A forwarder encountering this, together with a QoS treatment request (e.g. as proposed in <xref target="qostreatments"/>) could associate the traffic specification with the corresponding equivalence class derived from the name in the Interest. This would allow the forwarder to create state that not only would apply to the returning Data for that Interest when being queued on the downstream interface, but be maintained as soft state across multiple Interest/Data exchanges to drive policing and shaping algorithms at per-flow granularity. The cost in Interest message overhead would be modest, however the complications associated with managing different traffic specifications in different Interests for the same equivalence class might be substantial. Of course, all the scalability considerations with maintaining per-flow state also come into play.</t>
 
-<t>Similarly, it would be equally straightforward to have a way to express the degree of divergence capability that INTserv provides through its controlled load and guaranteed service definitions. This could either be packaged with the the traffic specification or encoded separately.</t>
+	<t>Similarly, it would be equally straightforward to have a way to express the degree of divergence capability that INTserv provides through its controlled load and guaranteed service definitions. This could either be packaged with the traffic specification or encoded separately.</t>
 
-<t>In contrast to the above, performing admission control for ICN flows is likely to be just as heavy-weight as it turned out to be with IP using RSVP. The dynamic multi-path, multi-destination forwarding model of ICN makes performing admission control particularly tricky. Just to illustrate:
-<list style="symbols">
-	<t>Forwarding paths are not confined to single paths (or a few ECMP equivalent paths) as they are with IP, making it difficult to know where to install state in advance of the arrival of an interest to forward.</t>
-	<t>As with point-to-multipoint complexities when using RSVP for MPLS-TE, state has to be installed to multiple producers over multiple paths before an admission control algorithm can commit the resources and say "yes" to a consumer needing admission control capabilities</t>
-	<t>Knowing when to remove admission control state is difficult in the absence of a heavy-weight resource reservation protocol. Soft state timeout may or may not be an adequate answer.</t>
-</list>
+	<t>In contrast to the above, performing admission control for ICN flows is likely to be just as heavy-weight as it turned out to be with IP using RSVP. The dynamic multi-path, multi-destination forwarding model of ICN makes performing admission control particularly tricky. Just to illustrate:
+	<list style="symbols">
+		<t>Forwarding paths are not confined to single paths (or a few ECMP equivalent paths) as they are with IP, making it difficult to know where to install state in advance of the arrival of an Interest to forward.</t>
+		<t>As with point-to-multipoint complexities when using RSVP for MPLS-TE, state has to be installed to multiple producers over multiple paths before an admission control algorithm can commit the resources and say "yes" to a consumer needing admission control capabilities</t>
+		<t>Knowing when to remove admission control state is difficult in the absence of a heavy-weight resource reservation protocol. Soft state timeout may or may not be an adequate answer.</t>
+	</list>
 
-Despite the challenges above, it may be possible to craft an admission control scheme for ICN that achieves the desired QoS goals of applications without the invention and deployment of a complex separate admission control signaling protocol. There have been designs in earlier network architectures that were capable of performing admission control piggybacked on packet transmission.</t>
+	Despite the challenges above, it may be possible to craft an admission control scheme for ICN that achieves the desired QoS goals of applications without the invention and deployment of a complex separate admission control signaling protocol. There have been designs in earlier network architectures that were capable of performing admission control piggybacked on packet transmission.</t>
 
-<t>(The earliest example the author is aware of is <xref target="Autonet"/>).</t> 
+	<t>(The earliest example the author is aware of is <xref target="Autonet"/>).</t> 
 
-<t>Such a scheme might have the following general shape <spanx style="strong">(warning: serious hand waving follows!)</spanx>:
-<list style="symbols">
-	<t>In addition to a QoS treatment and a traffic specification, an Interest requesting admission for the corresponding equivalence class would so indicate via a new TLV. It would also need to: (a) indicate an expiration time after which any reserved resources can be released, and (b) indicate that caches be bypassed, so that the admission control request arrives at a bone-fide producer (or Repo).</t>
-	<t>Each forwarder processing the Interest would check for resource availability and if not available, or the requested service not feasible, reject the Interest with with an admission control failure. If resources are available, the forwarder would record the traffic specification as described above and forward the Interest.</t>
-	<t>If the Interest successfully arrives at a Producer, the producer returns the requested Data.</t>
-	<t>Each on-path forwarder, on receiving the matching Data message, if the resources are sill available,  does the actual allocation, and marks the admission control TLV as "provisionally approved". Conversely, if the resource reservation fails, the admission control is marked "failed", although the Data is still passed downstream.</t>
-	<t>Upon the Data message arriving, the consumer knows if admission succeeded or not, and subsequent Interests can rely on the QoS state being in place until either some failure occurs, or a topology or other forwarding change alters the forwarding path. To deal with this, additional machinery is needed to ensure subsequent interests for an admitted flow either follow that path or an error is reported. One possibility (also useful in many other contexts), is to employ a <spanx>Path Steering</spanx> mechanism, such as the one described in <xref target="Moiseenko2017"/>.</t>
-</list>
-</t>
-	
+	<t>Such a scheme might have the following general shape <spanx style="strong">(warning: serious hand waving follows!)</spanx>:
+	<list style="symbols">
+		<t>In addition to a QoS treatment and a traffic specification, an Interest requesting admission for the corresponding equivalence class would so indicate via a new TLV. It would also need to: (a) indicate an expiration time after which any reserved resources can be released, and (b) indicate that caches be bypassed, so that the admission control request arrives at a bone-fide producer (or Repo).</t>
+		<t>Each forwarder processing the Interest would check for resource availability and if not available, or the requested service not feasible, reject the Interest with an admission control failure. If resources are available, the forwarder would record the traffic specification as described above and forward the Interest.</t>
+		<t>If the Interest successfully arrives at a Producer, the producer returns the requested Data.</t>
+		<t>Each on-path forwarder, on receiving the matching Data message, if the resources are still available, does the actual allocation, and marks the admission control TLV as "provisionally approved". Conversely, if the resource reservation fails, the admission control is marked "failed", although the Data is still passed downstream.</t>
+		<t>Upon the Data message arriving, the consumer knows if admission succeeded or not, and subsequent Interests can rely on the QoS state being in place until either some failure occurs, or a topology or other forwarding change alters the forwarding path. To deal with this, additional machinery is needed to ensure subsequent Interests for an admitted flow either follow that path or an error is reported. One possibility (also useful in many other contexts), is to employ a <spanx>Path Steering</spanx> mechanism, such as the one described in <xref target="Moiseenko2017"/>.</t>
+	</list></t>
+	</section>
 </section>
 
 <!-- This PI places the pagebreak correctly (before the section title) in the text output. -->
@@ -416,7 +416,7 @@ Despite the challenges above, it may be possible to craft an admission control s
 
 <t>There are a few ways in which QoS for ICN interacts with security and privacy issues. Since QoS addresses relationships among traffic rather than the inherent characteristics of traffic, it neither enhances nor degrades the security and privacy properties of the data being carried, as long as the machinery does not alter or otherwise compromise the basic security properties of the associated protocols. The QoS approaches advocated here for ICN can serve to amplify existing threats to network traffic however:
 <list style="symbols">	
-	<t>An attacker able to manipulate the QoS treatments of traffic can mount a more focused (and potentially more effective) denial of service attack by suppressing performance on traffic the attacker is targeting. Since the architcture here assumes QoS treatments are manipulable hop-by-hop, any on-path adversary can wreak havoc. Note however, that in basic ICN, an on-path attacker can do this and more by dropping, delaying, or mis-routing traffic independent of any particular QoS machinery in use.</t>
+	<t>An attacker able to manipulate the QoS treatments of traffic can mount a more focused (and potentially more effective) denial of service attack by suppressing performance on traffic the attacker is targeting. Since the architecture here assumes QoS treatments are manipulable hop-by-hop, any on-path adversary can wreak havoc. Note however, that in basic ICN, an on-path attacker can do this and more by dropping, delaying, or mis-routing traffic independent of any particular QoS machinery in use.</t>
 	
 	<t>By explicitly revealing equivalence classes of traffic via either names or other fields in packets, an attacker has yet one more handle to use to discover linkability of multiple requests.</t>
 </list>
