@@ -394,7 +394,7 @@ ul.toc li {
 <p id="rfc.section.1.p.1">The TCP/IP protocol suite used on today's Internet has over 30 years of accumulated research and engineering into the provision of Quality of Service machinery, employed with varying success in different environments. ICN protocols like Named Data Networking (NDN <a href="#NDN">[NDN]</a>) and Content-Centric Networking (CCNx <a href="#RFC8569">[RFC8569]</a>,<a href="#RFC8609">[RFC8609]</a>) have an accumulated 10 years of research and very little deployment. We therefore have the opportunity to either recapitulate the approaches taken with TCP/IP (e.g. IntServ <a href="#RFC2998">[RFC2998]</a> and Diffserv <a href="#RFC2474">[RFC2474]</a>) or design a new architecture and associated mechanisms aligned with the properties of ICN protocols which differ substantially from those of TCP/IP. This position paper advocates the latter approach and comprises the author's personal views on how Quality of Service (QoS) capabilities ought to be accommodated in ICN protocols like CCNx or NDN. Specifically, these protocols differ in fundamental ways from TCP/IP. The important differences are summarized in the following table:</p>
 <div id="rfc.table.1"/>
 <div id="IPvsICN"/>
-<table cellpadding="3" cellspacing="0" class="tt full center">
+<table cellpadding="3" cellspacing="0" class="tt all center">
   <caption>Differences between IP and ICN relevant to QoS architecture</caption>
   <thead>
     <tr>
@@ -487,7 +487,7 @@ ul.toc li {
 <p id="rfc.section.4.p.1">QoS is achieved through managed unfairness in the allocation of resources in network elements, particularly in the routers doing forwarding of ICN packets. So, a first order question is what resources need to be allocated, and how to ascertain which traffic gets what allocations. In the case of CCNx or NDN the important network element resources are:</p>
 <div id="rfc.table.2"/>
 <div id="ICNresources"/>
-<table cellpadding="3" cellspacing="0" class="tt full center">
+<table cellpadding="3" cellspacing="0" class="tt all center">
   <caption>ICN-related Network Element Resources</caption>
   <thead>
     <tr>
@@ -529,33 +529,33 @@ ul.toc li {
 <p id="rfc.section.5.p.1">TCP/IP has fewer resource types to manage than ICN, and in some cases the allocation methods are simpler, as shown in the following table:</p>
 <div id="rfc.table.3"/>
 <div id="TCPIPresources"/>
-<table cellpadding="3" cellspacing="0" class="tt full center">
+<table cellpadding="3" cellspacing="0" class="tt all center">
   <caption>IP-related Network Element Resources</caption>
   <thead>
     <tr>
-      <th class="center">Resource</th>
+      <th class="left">Resource</th>
       <th class="center">IP Relevant</th>
       <th class="left">TCP/IP Usage</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td class="center">Communication Link capacity</td>
+      <td class="left">Communication Link capacity</td>
       <td class="center">YES</td>
       <td class="left">buffering for queued packets</td>
     </tr>
     <tr>
-      <td class="center">Content Store capacity</td>
+      <td class="left">Content Store capacity</td>
       <td class="center">NO</td>
       <td class="left">no content store in IP</td>
     </tr>
     <tr>
-      <td class="center">Forwarder memory</td>
+      <td class="left">Forwarder memory</td>
       <td class="center">MAYBE</td>
       <td class="left">not needed for output-buffered designs </td>
     </tr>
     <tr>
-      <td class="center">Compute capacity</td>
+      <td class="left">Compute capacity</td>
       <td class="center">YES</td>
       <td class="left">for forwarding packets, but arguably much cheaper than ICN</td>
     </tr>
@@ -564,7 +564,7 @@ ul.toc li {
 <p id="rfc.section.5.p.2">For these resources, IP has specified three fundamental things, as shown in the following table:</p>
 <div id="rfc.table.4"/>
 <div id="IPQoSspecifiers"/>
-<table cellpadding="3" cellspacing="0" class="tt full center">
+<table cellpadding="3" cellspacing="0" class="tt all center">
   <caption>Fundamental protocol elements to achieve QoS for TCP/IP</caption>
   <thead>
     <tr>

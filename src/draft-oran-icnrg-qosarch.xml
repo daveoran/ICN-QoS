@@ -126,7 +126,7 @@
 
 <t>The TCP/IP protocol suite used on today's Internet has over 30 years of accumulated research and engineering into the provision of Quality of Service machinery, employed with varying success in different environments. ICN protocols like Named Data Networking (NDN <xref target="NDN"/>) and Content-Centric Networking (CCNx <xref target="RFC8569"/>,<xref target="RFC8609"/>) have an accumulated 10 years of research and very little deployment. We therefore have the opportunity to either recapitulate the approaches taken with TCP/IP (e.g. IntServ <xref target="RFC2998"/> and Diffserv <xref target="RFC2474"/>) or design a new architecture and associated mechanisms aligned with the properties of ICN protocols which differ substantially from those of TCP/IP. This position paper advocates the latter approach and comprises the author's personal views on how Quality of Service (QoS) capabilities ought to be accommodated in ICN protocols like CCNx or NDN. Specifically, these protocols differ in fundamental ways from TCP/IP. The important differences are summarized in the following table:</t>
 
-<texttable anchor="IPvsICN" title="Differences between IP and ICN relevant to QoS architecture">
+<texttable anchor="IPvsICN" style="all" title="Differences between IP and ICN relevant to QoS architecture">
 	<ttcol align="center">TCP/IP</ttcol>
 	<ttcol align="center">CCNx or NDN</ttcol>
 	<c>Stateless forwarding</c><c>Stateful forwarding</c>
@@ -210,8 +210,8 @@ Another factor in the design and deployment of QoS is the scalability and scope 
 
 <t>QoS is achieved through managed unfairness in the allocation of resources in network elements, particularly in the routers doing forwarding of ICN packets. So, a first order question is what resources need to be allocated, and how to ascertain which traffic gets what allocations. In the case of CCNx or NDN the important network element resources are:</t>
 
-<texttable anchor="ICNresources" title="ICN-related Network Element Resources">
-	<ttcol align="center">Resource</ttcol> <ttcol align="left" width="30">ICN Usage</ttcol>
+<texttable anchor="ICNresources" style="all" title="ICN-related Network Element Resources">
+	<ttcol align="center">Resource</ttcol> <ttcol align="left">ICN Usage</ttcol>
 	<c>Communication Link capacity</c> <c>buffering for queued packets</c>
 	<c>Content Store capacity</c> <c>to hold cached data</c>
 	<c>Forwarder memory</c> <c>for the Pending Interest Table (PIT)</c>
@@ -235,8 +235,8 @@ Another factor in the design and deployment of QoS is the scalability and scope 
 
 <section anchor="ipisdifferent" title="How does this relate to QoS in TCP/IP?">
 <t>TCP/IP has fewer resource types to manage than ICN, and in some cases the allocation methods are simpler, as shown in the following table:</t>
-<texttable anchor="TCPIPresources" title="IP-related Network Element Resources">
-	<ttcol align="center">Resource</ttcol> 
+<texttable anchor="TCPIPresources" style="all" title="IP-related Network Element Resources">
+	<ttcol align="left">Resource</ttcol> 
 	<ttcol align="center">IP Relevant</ttcol> 
 	<ttcol align="left" width="30">TCP/IP Usage</ttcol>
 	<c>Communication Link capacity</c> <c>YES</c> <c>buffering for queued packets</c>
@@ -246,7 +246,7 @@ Another factor in the design and deployment of QoS is the scalability and scope 
 </texttable>
 
 <t>For these resources, IP has specified three fundamental things, as shown in the following table:</t>
-<texttable anchor="IPQoSspecifiers" title="Fundamental protocol elements to achieve QoS for TCP/IP">
+<texttable anchor="IPQoSspecifiers" style="all" title="Fundamental protocol elements to achieve QoS for TCP/IP">
 	<ttcol align="center">What</ttcol> <ttcol align="left">How</ttcol>
 	<c><spanx style="strong">Equivalence classes</spanx></c>
 	<c>subset+prefix match on IP 5-tuple {SA,DA,SP,DP,PT}</c>

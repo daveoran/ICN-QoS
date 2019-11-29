@@ -82,22 +82,22 @@ Table of Contents
      3.1.  Congestion Control basics relevant to ICN . . . . . . . .   5
    4.  What can we control to achieve QoS in ICN?  . . . . . . . . .   7
    5.  How does this relate to QoS in TCP/IP?  . . . . . . . . . . .   8
-   6.  Why is ICN Different? Can we do Better? . . . . . . . . . . .   9
+   6.  Why is ICN Different? Can we do Better? . . . . . . . . . . .  10
      6.1.  Equivalence class capabilities  . . . . . . . . . . . . .  10
-     6.2.  Topology interactions with QoS  . . . . . . . . . . . . .  10
+     6.2.  Topology interactions with QoS  . . . . . . . . . . . . .  11
      6.3.  Specification of QoS treatments . . . . . . . . . . . . .  11
      6.4.  ICN forwarding semantics effect on QoS  . . . . . . . . .  12
-     6.5.  QoS interactions with Caching . . . . . . . . . . . . . .  12
+     6.5.  QoS interactions with Caching . . . . . . . . . . . . . .  13
    7.  A strawman set of principles to guide QoS architecture for
        ICN . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  13
      7.1.  What about the richer QoS semantics available with
            INTServ-like traffic control? . . . . . . . . . . . . . .  16
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  19
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  19
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  19
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  20
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  20
      10.2.  Informative References . . . . . . . . . . . . . . . . .  20
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  24
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  25
 
 1.  Introduction
 
@@ -130,13 +130,19 @@ Internet-Draft            ICN QoS Architecture              October 2019
    |              TCP/IP             |           CCNx or NDN           |
    +---------------------------------+---------------------------------+
    |       Stateless forwarding      |       Stateful forwarding       |
+   +---------------------------------+---------------------------------+
    |          Simple Packets         |    Object model with optional   |
    |                                 |             caching             |
+   +---------------------------------+---------------------------------+
    |       Pure datagram model       |      Request-response model     |
+   +---------------------------------+---------------------------------+
    |        Asymmetric Routing       |        Symmetric Routing        |
+   +---------------------------------+---------------------------------+
    |   Independent flow directions   |           Flow balance          |
+   +---------------------------------+---------------------------------+
    |  Flows grouped by IP prefix and |   Flows grouped by name prefix  |
    |               port              |                                 |
+   +---------------------------------+---------------------------------+
    |  End-to-end congestion control  |  Hop-by-hop congestion control  |
    +---------------------------------+---------------------------------+
 
@@ -156,12 +162,6 @@ Internet-Draft            ICN QoS Architecture              October 2019
    of Quality of Experience (QoE) which can only be assessed and
    controlled at the application layer or above.
 
-   Much of this document is derived from presentations the author has
-   given at ICNRG meetings over the last few years that are available
-   through the IETF datatracker (see, for example [Oran2018QoSslides]).
-
-
-
 
 
 
@@ -169,6 +169,10 @@ D. Oran                   Expires April 3, 2020                 [Page 3]
 
 Internet-Draft            ICN QoS Architecture              October 2019
 
+
+   Much of this document is derived from presentations the author has
+   given at ICNRG meetings over the last few years that are available
+   through the IETF datatracker (see, for example [Oran2018QoSslides]).
 
 2.  Requirements Language
 
@@ -214,10 +218,6 @@ Internet-Draft            ICN QoS Architecture              October 2019
       *  your QoS machinery cannot respond quickly enough to maintain
          the advertised service quality continuously, or
 
-      *  resource allocations are sufficiently conservative to result in
-         substantial wasted capacity under non-failure conditions
-
-
 
 
 
@@ -225,6 +225,9 @@ D. Oran                   Expires April 3, 2020                 [Page 4]
 
 Internet-Draft            ICN QoS Architecture              October 2019
 
+
+      *  resource allocations are sufficiently conservative to result in
+         substantial wasted capacity under non-failure conditions
 
    Nevertheless, though not universally deployed, QoS is advantageous at
    least for some applications and some network environments.  Some
@@ -271,9 +274,6 @@ Internet-Draft            ICN QoS Architecture              October 2019
    multiplexes traffic among multiple sources and destinations in order
    to:
 
-   1.  Prevent collapse of utility due to overload, where the total
-       offered service declines as load increases, perhaps
-       precipitously, rather than increasing or remaining flat.
 
 
 
@@ -281,6 +281,10 @@ D. Oran                   Expires April 3, 2020                 [Page 5]
 
 Internet-Draft            ICN QoS Architecture              October 2019
 
+
+   1.  Prevent collapse of utility due to overload, where the total
+       offered service declines as load increases, perhaps
+       precipitously, rather than increasing or remaining flat.
 
    2.  Avoid starvation of some traffic due to excessive demand by other
        traffic.
@@ -326,10 +330,6 @@ Internet-Draft            ICN QoS Architecture              October 2019
    1.  RTT is bounded by the Interest lifetime, which puts an upper
        bound on the RTT uncertainty for any given Interest/Data
        exchange.  If Interest lifetimes are kept reasonably short (a few
-       RTTs) the allocations do not have to deal with an arbitrarily
-       long tail.  One could in fact do a deterministic allocation on
-       this basis, but the result would be highly pessimistic.
-
 
 
 
@@ -338,6 +338,9 @@ D. Oran                   Expires April 3, 2020                 [Page 6]
 Internet-Draft            ICN QoS Architecture              October 2019
 
 
+       RTTs) the allocations do not have to deal with an arbitrarily
+       long tail.  One could in fact do a deterministic allocation on
+       this basis, but the result would be highly pessimistic.
        Nevertheless, having a cut-off does improve the performance of an
        optimistic allocation scheme.
 
@@ -361,17 +364,21 @@ Internet-Draft            ICN QoS Architecture              October 2019
    gets what allocations.  In the case of CCNx or NDN the important
    network element resources are:
 
-   +-----------------------------+-------------------------------------+
-   |           Resource          | ICN Usage                           |
-   +-----------------------------+-------------------------------------+
-   | Communication Link capacity | buffering for queued packets        |
-   |    Content Store capacity   | to hold cached data                 |
-   |       Forwarder memory      | for the Pending Interest Table      |
-   |                             | (PIT)                               |
-   |       Compute capacity      | for forwarding packets, including   |
-   |                             | the cost of Forwarding Information  |
-   |                             | Base (FIB) lookups.                 |
-   +-----------------------------+-------------------------------------+
+   +-----------------+-------------------------------------------------+
+   |     Resource    | ICN Usage                                       |
+   +-----------------+-------------------------------------------------+
+   |  Communication  | buffering for queued packets                    |
+   |  Link capacity  |                                                 |
+   +-----------------+-------------------------------------------------+
+   |  Content Store  | to hold cached data                             |
+   |     capacity    |                                                 |
+   +-----------------+-------------------------------------------------+
+   |    Forwarder    | for the Pending Interest Table (PIT)            |
+   |      memory     |                                                 |
+   +-----------------+-------------------------------------------------+
+   |     Compute     | for forwarding packets, including the cost of   |
+   |     capacity    | Forwarding Information Base (FIB) lookups.      |
+   +-----------------+-------------------------------------------------+
 
               Table 2: ICN-related Network Element Resources
 
@@ -380,13 +387,6 @@ Internet-Draft            ICN QoS Architecture              October 2019
    1.  How do you create _equivalence classes_ (a.k.a. flows) of traffic
        to which different QoS treatments are applied?
 
-   2.  What are the possible treatments and how are those mapped to the
-       resource allocation algorithms?
-
-   Two critical facts of life come into play when designing a QoS
-   scheme.  First, the number of equivalence classes that can be
-   simultaneously tracked in a network element is bounded by both memory
-
 
 
 D. Oran                   Expires April 3, 2020                 [Page 7]
@@ -394,6 +394,12 @@ D. Oran                   Expires April 3, 2020                 [Page 7]
 Internet-Draft            ICN QoS Architecture              October 2019
 
 
+   2.  What are the possible treatments and how are those mapped to the
+       resource allocation algorithms?
+
+   Two critical facts of life come into play when designing a QoS
+   scheme.  First, the number of equivalence classes that can be
+   simultaneously tracked in a network element is bounded by both memory
    and processing capacity to do the necessary lookups.  One can allow
    very fine-grained equivalence classes, but not be able to employ them
    globally because of scaling limits of core routers.  That means it is
@@ -420,25 +426,19 @@ Internet-Draft            ICN QoS Architecture              October 2019
    TCP/IP has fewer resource types to manage than ICN, and in some cases
    the allocation methods are simpler, as shown in the following table:
 
-   +-----------------------------+-------------+-----------------------+
-   |           Resource          | IP Relevant | TCP/IP Usage          |
-   +-----------------------------+-------------+-----------------------+
-   | Communication Link capacity |     YES     | buffering for queued  |
-   |                             |             | packets               |
-   |    Content Store capacity   |      NO     | no content store in   |
-   |                             |             | IP                    |
-   |       Forwarder memory      |    MAYBE    | not needed for        |
-   |                             |             | output-buffered       |
-   |                             |             | designs               |
-   |       Compute capacity      |     YES     | for forwarding        |
-   |                             |             | packets, but arguably |
-   |                             |             | much cheaper than ICN |
-   +-----------------------------+-------------+-----------------------+
 
-               Table 3: IP-related Network Element Resources
 
-   For these resources, IP has specified three fundamental things, as
-   shown in the following table:
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -450,13 +450,38 @@ D. Oran                   Expires April 3, 2020                 [Page 8]
 Internet-Draft            ICN QoS Architecture              October 2019
 
 
+   +-----------------------------+-------------+-----------------------+
+   | Resource                    | IP Relevant | TCP/IP Usage          |
+   +-----------------------------+-------------+-----------------------+
+   | Communication Link capacity |     YES     | buffering for queued  |
+   |                             |             | packets               |
+   +-----------------------------+-------------+-----------------------+
+   | Content Store capacity      |      NO     | no content store in   |
+   |                             |             | IP                    |
+   +-----------------------------+-------------+-----------------------+
+   | Forwarder memory            |    MAYBE    | not needed for        |
+   |                             |             | output-buffered       |
+   |                             |             | designs               |
+   +-----------------------------+-------------+-----------------------+
+   | Compute capacity            |     YES     | for forwarding        |
+   |                             |             | packets, but arguably |
+   |                             |             | much cheaper than ICN |
+   +-----------------------------+-------------+-----------------------+
+
+               Table 3: IP-related Network Element Resources
+
+   For these resources, IP has specified three fundamental things, as
+   shown in the following table:
+
    +----------------+--------------------------------------------------+
    |      What      | How                                              |
    +----------------+--------------------------------------------------+
    |  *Equivalence  | subset+prefix match on IP 5-tuple                |
    |    classes*    | {SA,DA,SP,DP,PT}                                 |
+   +----------------+--------------------------------------------------+
    |   *Diffserv    | (very) small number of globally-agreed traffic   |
    |  treatments*   | classes                                          |
+   +----------------+--------------------------------------------------+
    |    *Intserv    | per-flow parameterized _Controlled Load_ and     |
    |  treatments*   | _Guaranteed_ service classes                     |
    +----------------+--------------------------------------------------+
@@ -473,6 +498,14 @@ Internet-Draft            ICN QoS Architecture              October 2019
    requirement to identify the equivalence class to which the QoS being
    signaled applies.  The latter comprises the desired QoS treatment
    along with a description of the dynamic character of the traffic
+
+
+
+D. Oran                   Expires April 3, 2020                 [Page 9]
+
+Internet-Draft            ICN QoS Architecture              October 2019
+
+
    (e.g. average bandwidth and delay, peak bandwidth, etc.).  Both of
    these encounter substantial scaling limits, which has meant that
    Intserv has historically been limited to confined topologies, and/or
@@ -494,17 +527,6 @@ Internet-Draft            ICN QoS Architecture              October 2019
    there are several architectural choices in ICN that make it a
    potentially much better protocol base to enhance with QoS machinery.
    This section discusses those differences and their consequences.
-
-
-
-
-
-
-
-D. Oran                   Expires April 3, 2020                 [Page 9]
-
-Internet-Draft            ICN QoS Architecture              October 2019
-
 
 6.1.  Equivalence class capabilities
 
@@ -532,6 +554,14 @@ Internet-Draft            ICN QoS Architecture              October 2019
    Examples abound; a number can be conveniently found in
    [I-D.moiseenko-icnrg-flowclass].
 
+
+
+
+D. Oran                   Expires April 3, 2020                [Page 10]
+
+Internet-Draft            ICN QoS Architecture              October 2019
+
+
 6.2.  Topology interactions with QoS
 
    In ICN, QoS is not pre-bound to network topology since names are non-
@@ -549,18 +579,6 @@ Internet-Draft            ICN QoS Architecture              October 2019
    ICN, even worst case, requires state O(#active Interest/Data
    exchanges), since state can be instantiated on arrival of an
    Interest, and removed lazily once the data hase been returned.
-
-
-
-
-
-
-
-
-D. Oran                   Expires April 3, 2020                [Page 10]
-
-Internet-Draft            ICN QoS Architecture              October 2019
-
 
 6.3.  Specification of QoS treatments
 
@@ -592,6 +610,14 @@ Internet-Draft            ICN QoS Architecture              October 2019
    Such mechanisms are typically described in NDN and CCNx as
    _forwarding strategies_. However, little or no guidance is given for
    what application actions or protocol machinery is used to decide
+
+
+
+D. Oran                   Expires April 3, 2020                [Page 11]
+
+Internet-Draft            ICN QoS Architecture              October 2019
+
+
    which forwarding strategy to use for which Interests that arrive at a
    forwarder.  See [BenAbraham2018] for an investigation of these
    issues.  Associating forwarding strategies with the equivalence
@@ -610,14 +636,6 @@ Internet-Draft            ICN QoS Architecture              October 2019
    One complication in the handling of ICN QoS treatments is not present
    in IP and hence worth mention.  CCNx and NDN both perform _Interest
    aggregation_ (See Section 2.3.2 of [RFC8569]).  If an Interest
-
-
-
-D. Oran                   Expires April 3, 2020                [Page 11]
-
-Internet-Draft            ICN QoS Architecture              October 2019
-
-
    arrives matching an existing PIT entry, but with a different QoS
    treatment from an Interest already forwarded, it can be tricky to
    decide whether to aggregate the interest or forward it, and how to
@@ -644,6 +662,18 @@ Internet-Draft            ICN QoS Architecture              October 2019
    endpoints as open-loop packet sources, whereas NDN and CCNx have
    strong asymmetry between producers and consumers as packet sources.
 
+
+
+
+
+
+
+
+D. Oran                   Expires April 3, 2020                [Page 12]
+
+Internet-Draft            ICN QoS Architecture              October 2019
+
+
 6.5.  QoS interactions with Caching
 
    IP has no caching in routers, whereas ICN needs ways to allocate
@@ -666,14 +696,6 @@ Internet-Draft            ICN QoS Architecture              October 2019
    partitioning of cache resources in the content store of an ICN
    forwarder.  For example, cached content for a given equivalence class
    can be considered _fate shared_ in a cache whereby objects from the
-
-
-
-D. Oran                   Expires April 3, 2020                [Page 12]
-
-Internet-Draft            ICN QoS Architecture              October 2019
-
-
    same equivalence class can be purged as a group rather than
    individually.  This can recover cache space more quickly and at lower
    overhead than pure per-object replacement when a cache is under
@@ -700,6 +722,14 @@ Internet-Draft            ICN QoS Architecture              October 2019
    hierarchical decomposition of equivalence classes in a natural way
    because of the way hierarchical ICN names are constructed.  Two
    practical mechanisms are presented in [I-D.moiseenko-icnrg-flowclass]
+
+
+
+D. Oran                   Expires April 3, 2020                [Page 13]
+
+Internet-Draft            ICN QoS Architecture              October 2019
+
+
    with different tradeoffs between security and the ability to
    aggregate flows.  Either prefix-based (EC3) or explicit name
    component based (ECNT) or both could be adopted as the part of the
@@ -720,15 +750,6 @@ Internet-Draft            ICN QoS Architecture              October 2019
 
    o  Shed load by having Interests served by content stores in
       forwarders before reaching the producer itself.
-
-
-
-
-
-D. Oran                   Expires April 3, 2020                [Page 13]
-
-Internet-Draft            ICN QoS Architecture              October 2019
-
 
    o  Survive transient outages of either the producer or links close to
       the producer.
@@ -756,6 +777,15 @@ Internet-Draft            ICN QoS Architecture              October 2019
    treatments in their Interests.  Consider the following potential QoS
    treatments by consumers that can drive caching policies:
 
+
+
+
+
+D. Oran                   Expires April 3, 2020                [Page 14]
+
+Internet-Draft            ICN QoS Architecture              October 2019
+
+
    o  A QoS treatment requesting better robustness against transient
       disconnection can be used by a forwarder close to the consumer (or
       downstream of an unreliable link) to preferentially cache the
@@ -778,14 +808,6 @@ Internet-Draft            ICN QoS Architecture              October 2019
    administratively to producer or consumer, or constituting an
    independent transit administration, provide the storage resources in
    the ICN forwarders.  Therefore, they are the ultimate arbiters of how
-
-
-
-D. Oran                   Expires April 3, 2020                [Page 14]
-
-Internet-Draft            ICN QoS Architecture              October 2019
-
-
    the cache resources are managed.  In addition to any local policies
    they may enforce, the cache behavior from the QoS standpoint emerges
    from how the producer-specified equivalence classes map onto cache
@@ -812,6 +834,14 @@ Internet-Draft            ICN QoS Architecture              October 2019
    Diffserv*. Some of the Diffserv classes may form a good starting
    point, as their mapping onto queuing algorithms for managing link
    buffering are well understood.  However, Diffserv alone does not
+
+
+
+D. Oran                   Expires April 3, 2020                [Page 15]
+
+Internet-Draft            ICN QoS Architecture              October 2019
+
+
    allow one to express latency versus reliability tradeoffs or other
    useful QoS treatments.  Nor does it permit "TSPEC"-style traffic
    descriptions as are allowed in a signaled QoS scheme.  Here are some
@@ -834,14 +864,6 @@ Internet-Draft            ICN QoS Architecture              October 2019
       Lifetime, tries many paths either in parallel or serial to
       potentially many content sources, to maximize the probability that
       the requested item will be found.  This is done at the expense of
-
-
-
-D. Oran                   Expires April 3, 2020                [Page 15]
-
-Internet-Draft            ICN QoS Architecture              October 2019
-
-
       the extra bandwidth of both forwarding Interests and receiving
       multiple responses upstream of an aggregation point.  The
       treatment can encode a value expressing tradeoffs like breadth-
@@ -869,6 +891,13 @@ Internet-Draft            ICN QoS Architecture              October 2019
    can be provided in ICN at lower complexity and protocol overhead than
    INTServ+RSVP.
 
+
+
+D. Oran                   Expires April 3, 2020                [Page 16]
+
+Internet-Draft            ICN QoS Architecture              October 2019
+
+
    There are three key capabilities missing from Diffserv-like QoS
    treatments, no matter how sophisticated they may be in describing the
    desired treatment for a given equivalence class of traffic.  INTserv-
@@ -890,14 +919,6 @@ Internet-Draft            ICN QoS Architecture              October 2019
        and shape the traffic in a way that provides a sufficient degree
        of _isolation_ from the dynamic behavior of other traffic.
        Depending on the admission control mechanism, it may or may not
-
-
-
-D. Oran                   Expires April 3, 2020                [Page 16]
-
-Internet-Draft            ICN QoS Architecture              October 2019
-
-
        be possible to explicitly release that state when the application
        no longer needs the QoS treatment.
 
@@ -925,6 +946,14 @@ Internet-Draft            ICN QoS Architecture              October 2019
    specification with the corresponding equivalence class derived from
    the name in the Interest.  This would allow the forwarder to create
    state that not only would apply to the returning Data for that
+
+
+
+D. Oran                   Expires April 3, 2020                [Page 17]
+
+Internet-Draft            ICN QoS Architecture              October 2019
+
+
    Interest when being queued on the downstream interface, but be
    maintained as soft state across multiple Interest/Data exchanges to
    drive policing and shaping algorithms at per-flow granularity.  The
@@ -945,14 +974,6 @@ Internet-Draft            ICN QoS Architecture              October 2019
    using RSVP.  The dynamic multi-path, multi-destination forwarding
    model of ICN makes performing admission control particularly tricky.
    Just to illustrate:
-
-
-
-
-D. Oran                   Expires April 3, 2020                [Page 17]
-
-Internet-Draft            ICN QoS Architecture              October 2019
-
 
    o  Forwarding paths are not confined to single paths (or a few ECMP
       equivalent paths) as they are with IP, making it difficult to know
@@ -981,6 +1002,14 @@ Internet-Draft            ICN QoS Architecture              October 2019
    Such a scheme might have the following general shape *(warning:
    serious hand waving follows!)*:
 
+
+
+
+D. Oran                   Expires April 3, 2020                [Page 18]
+
+Internet-Draft            ICN QoS Architecture              October 2019
+
+
    o  In addition to a QoS treatment and a traffic specification, an
       Interest requesting admission for the corresponding equivalence
       class would so indicate via a new TLV.  It would also need to: (a)
@@ -1002,14 +1031,6 @@ Internet-Draft            ICN QoS Architecture              October 2019
       the resources are still available, does the actual allocation, and
       marks the admission control TLV as "provisionally approved".
       Conversely, if the resource reservation fails, the admission
-
-
-
-D. Oran                   Expires April 3, 2020                [Page 18]
-
-Internet-Draft            ICN QoS Architecture              October 2019
-
-
       control is marked "failed", although the Data is still passed
       downstream.
 
@@ -1038,6 +1059,13 @@ Internet-Draft            ICN QoS Architecture              October 2019
    The QoS approaches advocated here for ICN can serve to amplify
    existing threats to network traffic however:
 
+
+
+D. Oran                   Expires April 3, 2020                [Page 19]
+
+Internet-Draft            ICN QoS Architecture              October 2019
+
+
    o  An attacker able to manipulate the QoS treatments of traffic can
       mount a more focused (and potentially more effective) denial of
       service attack by suppressing performance on traffic the attacker
@@ -1054,17 +1082,6 @@ Internet-Draft            ICN QoS Architecture              October 2019
 10.  References
 
 10.1.  Normative References
-
-
-
-
-
-
-
-D. Oran                   Expires April 3, 2020                [Page 19]
-
-Internet-Draft            ICN QoS Architecture              October 2019
-
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1095,6 +1112,16 @@ Internet-Draft            ICN QoS Architecture              October 2019
               <https://www.hpl.hp.com/techreports/Compaq-DEC/SRC-RR-
               59.pdf>.
 
+
+
+
+
+
+D. Oran                   Expires April 3, 2020                [Page 20]
+
+Internet-Draft            ICN QoS Architecture              October 2019
+
+
    [BenAbraham2018]
               Ben Abraham, H., Parwatikar, J., DeHart, J., Dresher, A.,
               and P. Crowley, "Decoupling Information and Connectivity
@@ -1112,15 +1139,6 @@ Internet-Draft            ICN QoS Architecture              October 2019
               2012", DOI 10.1145/2377677.2377772, 2102,
               <http://conferences.sigcomm.org/sigcomm/2012/paper/icn/
               p37.pdf>.
-
-
-
-
-
-D. Oran                   Expires April 3, 2020                [Page 20]
-
-Internet-Draft            ICN QoS Architecture              October 2019
-
 
    [I-D.anilj-icnrg-dnc-qos-icn]
               Jangam, A., suthar, P., and M. Stolic, "QoS Treatments in
@@ -1150,6 +1168,16 @@ Internet-Draft            ICN QoS Architecture              October 2019
               mastorakis-icnrg-icntraceroute-05 (work in progress),
               August 2019.
 
+
+
+
+
+
+D. Oran                   Expires April 3, 2020                [Page 21]
+
+Internet-Draft            ICN QoS Architecture              October 2019
+
+
    [I-D.moiseenko-icnrg-flowclass]
               Moiseenko, I. and D. Oran, "Flow Classification in
               Information Centric Networking", draft-moiseenko-icnrg-
@@ -1165,18 +1193,6 @@ Internet-Draft            ICN QoS Architecture              October 2019
               Oran, D., "Maintaining CCNx or NDN flow balance with
               highly variable data object sizes", draft-oran-icnrg-
               flowbalance-01 (work in progress), August 2019.
-
-
-
-
-
-
-
-
-D. Oran                   Expires April 3, 2020                [Page 21]
-
-Internet-Draft            ICN QoS Architecture              October 2019
-
 
    [Krol2018]
               Krol, M., Habak, K., Oran, D., Kutscher, D., and I.
@@ -1210,6 +1226,14 @@ Internet-Draft            ICN QoS Architecture              October 2019
    [NDN]      NDN team, , "Named Data Networking", various,
               <https://named-data.net/project/execsummary/>.
 
+
+
+
+D. Oran                   Expires April 3, 2020                [Page 22]
+
+Internet-Draft            ICN QoS Architecture              October 2019
+
+
    [Oran2018QoSslides]
               Oran, D., "Thoughts on Quality of Service for NDN/CCN-
               style ICN protocol architectures, presented at ICNRG
@@ -1225,14 +1249,6 @@ Internet-Draft            ICN QoS Architecture              October 2019
    [RFC0793]  Postel, J., "Transmission Control Protocol", STD 7,
               RFC 793, DOI 10.17487/RFC0793, September 1981,
               <https://www.rfc-editor.org/info/rfc793>.
-
-
-
-
-D. Oran                   Expires April 3, 2020                [Page 22]
-
-Internet-Draft            ICN QoS Architecture              October 2019
-
 
    [RFC2205]  Braden, R., Ed., Zhang, L., Berson, S., Herzog, S., and S.
               Jamin, "Resource ReSerVation Protocol (RSVP) -- Version 1
@@ -1265,6 +1281,15 @@ Internet-Draft            ICN QoS Architecture              October 2019
               DOI 10.17487/RFC4340, March 2006, <https://www.rfc-
               editor.org/info/rfc4340>.
 
+
+
+
+
+D. Oran                   Expires April 3, 2020                [Page 23]
+
+Internet-Draft            ICN QoS Architecture              October 2019
+
+
    [RFC4594]  Babiarz, J., Chan, K., and F. Baker, "Configuration
               Guidelines for DiffServ Service Classes", RFC 4594,
               DOI 10.17487/RFC4594, August 2006, <https://www.rfc-
@@ -1282,13 +1307,6 @@ Internet-Draft            ICN QoS Architecture              October 2019
               '16", DOI 10.1145/2984356.2984369, 2016,
               <http://conferences2.sigcomm.org/acm-icn/2016/proceedings/
               p21-schneider.pdf>.
-
-
-
-D. Oran                   Expires April 3, 2020                [Page 23]
-
-Internet-Draft            ICN QoS Architecture              October 2019
-
 
    [Shenker2006]
               Shenker, S., "Fundamental Design Issues for the Future
@@ -1318,6 +1336,16 @@ Internet-Draft            ICN QoS Architecture              October 2019
               2000, <https://ieeexplore.ieee.org/
               document/819168?arnumber=819168>.
 
+
+
+
+
+
+D. Oran                   Expires April 3, 2020                [Page 24]
+
+Internet-Draft            ICN QoS Architecture              October 2019
+
+
    [Wang2013]
               Wang, Y., Rozhnova, N., Narayanan, A., Oran, D., and I.
               Rhee, "An Improved Hop-by-hop Interest Shaper for
@@ -1341,4 +1369,32 @@ Author's Address
 
 
 
-D. Oran                   Expires April 3, 2020                [Page 24]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+D. Oran                   Expires April 3, 2020                [Page 25]
