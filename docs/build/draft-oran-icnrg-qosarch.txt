@@ -4,8 +4,8 @@
 
 ICNRG                                                            D. Oran
 Internet-Draft                       Network Systems Research and Design
-Intended status: Informational                              October 2019
-Expires: April 3, 2020
+Intended status: Informational                          December 3, 2019
+Expires: June 5, 2020
 
 
  Considerations in the development of a QoS Architecture for CCNx-like
@@ -46,16 +46,16 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 3, 2020.
+   This Internet-Draft will expire on June 5, 2020.
 
 
 
 
 
 
-D. Oran                   Expires April 3, 2020                 [Page 1]
+D. Oran                   Expires June 5, 2020                  [Page 1]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
 Copyright Notice
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-D. Oran                   Expires April 3, 2020                 [Page 2]
+D. Oran                   Expires June 5, 2020                  [Page 2]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
    accumulated 10 years of research and very little deployment.  We
@@ -165,9 +165,9 @@ Internet-Draft            ICN QoS Architecture              October 2019
 
 
 
-D. Oran                   Expires April 3, 2020                 [Page 3]
+D. Oran                   Expires June 5, 2020                  [Page 3]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
    Much of this document is derived from presentations the author has
@@ -221,9 +221,9 @@ Internet-Draft            ICN QoS Architecture              October 2019
 
 
 
-D. Oran                   Expires April 3, 2020                 [Page 4]
+D. Oran                   Expires June 5, 2020                  [Page 4]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
       *  resource allocations are sufficiently conservative to result in
@@ -277,9 +277,9 @@ Internet-Draft            ICN QoS Architecture              October 2019
 
 
 
-D. Oran                   Expires April 3, 2020                 [Page 5]
+D. Oran                   Expires June 5, 2020                  [Page 5]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
    1.  Prevent collapse of utility due to overload, where the total
@@ -333,9 +333,9 @@ Internet-Draft            ICN QoS Architecture              October 2019
 
 
 
-D. Oran                   Expires April 3, 2020                 [Page 6]
+D. Oran                   Expires June 5, 2020                  [Page 6]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
        RTTs) the allocations do not have to deal with an arbitrarily
@@ -389,9 +389,9 @@ Internet-Draft            ICN QoS Architecture              October 2019
 
 
 
-D. Oran                   Expires April 3, 2020                 [Page 7]
+D. Oran                   Expires June 5, 2020                  [Page 7]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
    2.  What are the possible treatments and how are those mapped to the
@@ -445,9 +445,9 @@ Internet-Draft            ICN QoS Architecture              October 2019
 
 
 
-D. Oran                   Expires April 3, 2020                 [Page 8]
+D. Oran                   Expires June 5, 2020                  [Page 8]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
    +-----------------------------+-------------+-----------------------+
@@ -501,9 +501,9 @@ Internet-Draft            ICN QoS Architecture              October 2019
 
 
 
-D. Oran                   Expires April 3, 2020                 [Page 9]
+D. Oran                   Expires June 5, 2020                  [Page 9]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
    (e.g. average bandwidth and delay, peak bandwidth, etc.).  Both of
@@ -557,9 +557,9 @@ Internet-Draft            ICN QoS Architecture              October 2019
 
 
 
-D. Oran                   Expires April 3, 2020                [Page 10]
+D. Oran                   Expires June 5, 2020                 [Page 10]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
 6.2.  Topology interactions with QoS
@@ -613,9 +613,9 @@ Internet-Draft            ICN QoS Architecture              October 2019
 
 
 
-D. Oran                   Expires April 3, 2020                [Page 11]
+D. Oran                   Expires June 5, 2020                 [Page 11]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
    which forwarding strategy to use for which Interests that arrive at a
@@ -669,9 +669,9 @@ Internet-Draft            ICN QoS Architecture              October 2019
 
 
 
-D. Oran                   Expires April 3, 2020                [Page 12]
+D. Oran                   Expires June 5, 2020                 [Page 12]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
 6.5.  QoS interactions with Caching
@@ -725,9 +725,9 @@ Internet-Draft            ICN QoS Architecture              October 2019
 
 
 
-D. Oran                   Expires April 3, 2020                [Page 13]
+D. Oran                   Expires June 5, 2020                 [Page 13]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
    with different tradeoffs between security and the ability to
@@ -781,9 +781,9 @@ Internet-Draft            ICN QoS Architecture              October 2019
 
 
 
-D. Oran                   Expires April 3, 2020                [Page 14]
+D. Oran                   Expires June 5, 2020                 [Page 14]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
    o  A QoS treatment requesting better robustness against transient
@@ -837,9 +837,9 @@ Internet-Draft            ICN QoS Architecture              October 2019
 
 
 
-D. Oran                   Expires April 3, 2020                [Page 15]
+D. Oran                   Expires June 5, 2020                 [Page 15]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
    allow one to express latency versus reliability tradeoffs or other
@@ -893,9 +893,9 @@ Internet-Draft            ICN QoS Architecture              October 2019
 
 
 
-D. Oran                   Expires April 3, 2020                [Page 16]
+D. Oran                   Expires June 5, 2020                 [Page 16]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
    There are three key capabilities missing from Diffserv-like QoS
@@ -949,9 +949,9 @@ Internet-Draft            ICN QoS Architecture              October 2019
 
 
 
-D. Oran                   Expires April 3, 2020                [Page 17]
+D. Oran                   Expires June 5, 2020                 [Page 17]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
    Interest when being queued on the downstream interface, but be
@@ -1005,9 +1005,9 @@ Internet-Draft            ICN QoS Architecture              October 2019
 
 
 
-D. Oran                   Expires April 3, 2020                [Page 18]
+D. Oran                   Expires June 5, 2020                 [Page 18]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
    o  In addition to a QoS treatment and a traffic specification, an
@@ -1061,9 +1061,9 @@ Internet-Draft            ICN QoS Architecture              October 2019
 
 
 
-D. Oran                   Expires April 3, 2020                [Page 19]
+D. Oran                   Expires June 5, 2020                 [Page 19]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
    o  An attacker able to manipulate the QoS treatments of traffic can
@@ -1117,9 +1117,9 @@ Internet-Draft            ICN QoS Architecture              October 2019
 
 
 
-D. Oran                   Expires April 3, 2020                [Page 20]
+D. Oran                   Expires June 5, 2020                 [Page 20]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
    [BenAbraham2018]
@@ -1173,9 +1173,9 @@ Internet-Draft            ICN QoS Architecture              October 2019
 
 
 
-D. Oran                   Expires April 3, 2020                [Page 21]
+D. Oran                   Expires June 5, 2020                 [Page 21]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
    [I-D.moiseenko-icnrg-flowclass]
@@ -1229,9 +1229,9 @@ Internet-Draft            ICN QoS Architecture              October 2019
 
 
 
-D. Oran                   Expires April 3, 2020                [Page 22]
+D. Oran                   Expires June 5, 2020                 [Page 22]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
    [Oran2018QoSslides]
@@ -1285,9 +1285,9 @@ Internet-Draft            ICN QoS Architecture              October 2019
 
 
 
-D. Oran                   Expires April 3, 2020                [Page 23]
+D. Oran                   Expires June 5, 2020                 [Page 23]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
    [RFC4594]  Babiarz, J., Chan, K., and F. Baker, "Configuration
@@ -1341,9 +1341,9 @@ Internet-Draft            ICN QoS Architecture              October 2019
 
 
 
-D. Oran                   Expires April 3, 2020                [Page 24]
+D. Oran                   Expires June 5, 2020                 [Page 24]
 
-Internet-Draft            ICN QoS Architecture              October 2019
+Internet-Draft            ICN QoS Architecture             December 2019
 
 
    [Wang2013]
@@ -1397,4 +1397,4 @@ Author's Address
 
 
 
-D. Oran                   Expires April 3, 2020                [Page 25]
+D. Oran                   Expires June 5, 2020                 [Page 25]
