@@ -308,8 +308,8 @@ ul.toc li {
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="D. Oran, " />
-  <meta name="dct.identifier" content="urn:ietf:id:draft-oran-icnrg-qosarch-03" />
-  <meta name="dct.issued" scheme="ISO8601" content="2019-12-3" />
+  <meta name="dct.identifier" content="urn:ietf:id:draft-oran-icnrg-qosarch-04" />
+  <meta name="dct.issued" scheme="ISO8601" content="2019-12-4" />
   <meta name="dct.abstract" content="This is a position paper. It documents the author's personal views on how Quality of Service (QoS) capabilities ought to be accommodated in ICN protocols like CCNx or NDN which employ flow-balanced Interest/Data exchanges and hop-by-hop forwarding state as their fundamental machinery. It argues that such protocols demand a substantially different approach to QoS from that taken in TCP/IP, and proposes specific design patterns to achieve both classification and differentiated QoS treatment on both a flow and aggregate basis. It also considers the effect of caches as a resource in addition to memory, CPU and link bandwidth that should be subject to explicitly unfair resource allocation. The proposed methods are intended to operate purely at the network layer, providing the primitives needed to achieve both transport and higher layer QoS objectives. It explicitly excludes any discussion of Quality of Experience (QoE) which can only be assessed and controlled at the application layer or above. " />
   <meta name="description" content="This is a position paper. It documents the author's personal views on how Quality of Service (QoS) capabilities ought to be accommodated in ICN protocols like CCNx or NDN which employ flow-balanced Interest/Data exchanges and hop-by-hop forwarding state as their fundamental machinery. It argues that such protocols demand a substantially different approach to QoS from that taken in TCP/IP, and proposes specific design patterns to achieve both classification and differentiated QoS treatment on both a flow and aggregate basis. It also considers the effect of caches as a resource in addition to memory, CPU and link bandwidth that should be subject to explicitly unfair resource allocation. The proposed methods are intended to operate purely at the network layer, providing the primitives needed to achieve both transport and higher layer QoS objectives. It explicitly excludes any discussion of Quality of Experience (QoE) which can only be assessed and controlled at the application layer or above. " />
 
@@ -330,10 +330,10 @@ ul.toc li {
 </tr>
 <tr>
   <td class="left">Intended status: Informational</td>
-  <td class="right">December 3, 2019</td>
+  <td class="right">December 4, 2019</td>
 </tr>
 <tr>
-  <td class="left">Expires: June 5, 2020</td>
+  <td class="left">Expires: June 6, 2020</td>
   <td class="right"></td>
 </tr>
 
@@ -342,7 +342,7 @@ ul.toc li {
   </table>
 
   <p class="title">Considerations in the development of a QoS Architecture for CCNx-like ICN protocols <br />
-  <span class="filename">draft-oran-icnrg-qosarch-03</span></p>
+  <span class="filename">draft-oran-icnrg-qosarch-04</span></p>
   
   <h1 id="rfc.abstract">
   <a href="#rfc.abstract">Abstract</a>
@@ -354,7 +354,7 @@ ul.toc li {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on June 5, 2020.</p>
+<p>This Internet-Draft will expire on June 6, 2020.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -476,13 +476,14 @@ ul.toc li {
 </ol>
 
 <p> </p>
-<p id="rfc.section.3.1.p.2">Before moving on to QoS, it is useful to consider how congestion control works in NDN or CCNx. Unlike the IP protocol family, which relies exclusively on end-to-end congestion control (e.g. TCP<a href="#RFC0793">[RFC0793]</a>, DCCP<a href="#RFC4340">[RFC4340]</a>, SCTP<a href="#RFC4960">[RFC4960]</a>, QUIC<a href="#I-D.ietf-quic-transport">[I-D.ietf-quic-transport]</a>), CCNx and NDN can employ hop-by-hop congestion control. There is per-Interest/Data state at every hop of the path and therefore for each outstanding Interest, bandwidth for data returning on the inverse path can be allocated. In current designs, this allocation is often done using Interest counting. By accepting one Interest packet from a downstream node, implicitly this provides a guarantee (either hard or soft) that there is sufficient bandwidth on the inverse direction of the link to send back one Data packet. A number of congestion control schemes have been developed for ICN that operate in this fashion, for example <a href="#Wang2013">[Wang2013]</a>, <a href="#Mahdian2016">[Mahdian2016]</a>, <a href="#Song2018">[Song2018]</a>, <a href="#Carofiglio2012">[Carofiglio2012]</a>. Other schemes, like <a href="#Schneider2016">[Schneider2016]</a> neither count nor police Interests, but instead monitor queues using AQM (active queue management) to mark returning Data packets that have experienced congestion. This later class of schemes is similar to those used on IP in the sense that they depend on consumers adequately reducing their rate of Interest injection to avoid Data packet drops due to buffer overflow in forwarders. The former class of schemes is (arguably) more robust against mis-behavior by consumers.  </p>
+<p id="rfc.section.3.1.p.2">Before moving on to QoS, it is useful to consider how congestion control works in NDN or CCNx. Unlike the IP protocol family, which relies exclusively on end-to-end congestion control (e.g. TCP<a href="#RFC0793">[RFC0793]</a>, DCCP<a href="#RFC4340">[RFC4340]</a>, SCTP<a href="#RFC4960">[RFC4960]</a>, QUIC<a href="#I-D.ietf-quic-transport">[I-D.ietf-quic-transport]</a>), CCNx and NDN can employ hop-by-hop congestion control. There is per-Interest/Data state at every hop of the path and therefore outstanding Interests provide information that can be used to optimize resource allocation for data returning on the inverse path, such as bandwidth sharing, prioritization and overload control. In current designs, this allocation is often done using Interest counting. By accepting one Interest packet from a downstream node, implicitly this provides a guarantee (either hard or soft) that there is sufficient bandwidth on the inverse direction of the link to send back one Data packet. A number of congestion control schemes have been developed for ICN that operate in this fashion, for example <a href="#Wang2013">[Wang2013]</a>, <a href="#Mahdian2016">[Mahdian2016]</a>, <a href="#Song2018">[Song2018]</a>, <a href="#Carofiglio2012">[Carofiglio2012]</a>. Other schemes, like <a href="#Schneider2016">[Schneider2016]</a> neither count nor police Interests, but instead monitor queues using AQM (active queue management) to mark returning Data packets that have experienced congestion. This later class of schemes is similar to those used on IP in the sense that they depend on consumers adequately reducing their rate of Interest injection to avoid Data packet drops due to buffer overflow in forwarders. The former class of schemes is (arguably) more robust against mis-behavior by consumers.  </p>
 <p id="rfc.section.3.1.p.3">Given the stochastic nature of round trip times, and the ubiquity of wireless links and encapsulation tunnels with variable bandwidth, a simple scheme that admits interests only based on a time-invariant estimate of the returning link bandwidth will perform poorly. However, two characteristics of NDN and CCNx-like protocols can help substantially to improve the accuracy and responsiveness of the bandwidth allocation: </p>
 
 <ol>
   <li>RTT is bounded by the Interest lifetime, which puts an upper bound on the RTT uncertainty for any given Interest/Data exchange. If Interest lifetimes are kept reasonably short (a few RTTs) the allocations do not have to deal with an arbitrarily long tail. One could in fact do a deterministic allocation on this basis, but the result would be highly pessimistic. Nevertheless, having a cut-off does improve the performance of an optimistic allocation scheme.</li>
   <li>Returning Data packets can be congestion marked by an ECN-like marking scheme if the inverse link starts experiencing long queue occupancy or other congestion indication. Unlike TCP/IP, where the rate adjustment can only be done end-to-end, this feedback is usable immediately by the downstream ICN forwarder and the Interest shaping rate lowered after a single link RTT. This may allow less pessimistic rate adjustment schemes than the AIMD with .5 multiplier that is used on TCP/IP networks. It also allows the rate adjustments to be spread more accurately among the Interest/Data flows traversing a link sending congestion signals.</li>
 </ol>
+<p id="rfc.section.3.1.p.4">A useful discussion of these properties and how they demonstrate the advantages of ICN approaches to congestion control can be found in <a href="#Carofiglio2016">[Carofiglio2016]</a></p>
 <h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#basics" id="basics">What can we control to achieve QoS in ICN?</a></h1>
 <p id="rfc.section.4.p.1">QoS is achieved through managed unfairness in the allocation of resources in network elements, particularly in the routers doing forwarding of ICN packets. So, a first order question is what resources need to be allocated, and how to ascertain which traffic gets what allocations. In the case of CCNx or NDN the important network element resources are:</p>
 <div id="rfc.table.2"/>
@@ -629,7 +630,7 @@ ul.toc li {
   <dt>Recommended Cache Time:</dt>
   <dd style="margin-left: 8">time after which the publisher considers the Content Object to be of low value to cache.</dd>
 </dl>
-<p id="rfc.section.6.5.p.2">See <a href="#RFC8569">[RFC8569]</a> for the formal definitions  s.</p>
+<p id="rfc.section.6.5.p.2">See <a href="#RFC8569">[RFC8569]</a> for the formal definitions.</p>
 <p id="rfc.section.6.5.p.3">ICN flow classifiers, such as those in <a href="#I-D.moiseenko-icnrg-flowclass">[I-D.moiseenko-icnrg-flowclass]</a> can be used to achieve soft or hard partitioning of cache resources in the content store of an ICN forwarder. For example, cached content for a given equivalence class can be considered <em>fate shared</em> in a cache whereby objects from the same equivalence class can be purged as a group rather than individually. This can recover cache space more quickly and at lower overhead than pure per-object replacement when a cache is under extreme pressure and in danger of thrashing. In addition, since the forwarder remembers the QoS treatment for each pending Interest in its PIT, the above cache controls can be augmented by policy to prefer retention of cached content for some equivalence classes as part of the cache replacement algorithm.</p>
 <h1 id="rfc.section.7"><a href="#rfc.section.7">7.</a> <a href="#principles" id="principles">A strawman set of principles to guide QoS architecture for ICN</a></h1>
 <p id="rfc.section.7.p.1">Based on the observations made in the earlier sections, this summary section captures the author's ideas for clear and actionable architectural principles for how to incorporate QoS machinery into ICN protocols like NDN and CCNx. Hopefully, they can guide further work and focus effort on portions of the giant design space for QoS that have the best tradeoffs in terms of flexibility, simplicity, and deployability.</p>
@@ -771,7 +772,13 @@ ul.toc li {
       <td class="reference">
         <b id="Carofiglio2012">[Carofiglio2012]</b>
       </td>
-      <td class="top"><a>Carofiglio, G.</a>, <a>Gallo, M.</a> and <a>L. Muscariello</a>, "<a href="http://conferences.sigcomm.org/sigcomm/2012/paper/icn/p37.pdf">Joint hop-by-hop and receiver-driven Interest control protocol for content-centric networks, in ICN Workshop at SIGcomm 2012</a>", DOI 10.1145/2377677.2377772, 2102.</td>
+      <td class="top"><a>Carofiglio, G.</a>, <a>Gallo, M.</a> and <a>L. Muscariello</a>, "<a href="http://conferences.sigcomm.org/sigcomm/2012/paper/icn/p37.pdf">Joint hop-by-hop and receiver-driven Interest control protocol for content-centric networks, in ICN Workshop at SIGcomm 2012</a>", DOI 10.1016/j.comnet.2016.09.012, 2012.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="Carofiglio2016">[Carofiglio2016]</b>
+      </td>
+      <td class="top"><a>Carofiglio, G.</a>, <a>Gallo, M.</a> and <a>L. Muscariello</a>, "<a href="https://doi.org/10.1016/j.comnet.2016.09.012">Optimal multipath congestion control and request forwarding in information-centric networks: Protocol design and experimentation in Computer Networks, Vol. 110 No. 9, December 2016</a>", DOI 10.1145/2377677.2377772, 2016.</td>
     </tr>
     <tr>
       <td class="reference">
