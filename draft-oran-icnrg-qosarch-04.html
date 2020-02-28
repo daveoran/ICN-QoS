@@ -10,7 +10,7 @@
        This is a position paper. It documents the author's personal views on how Quality of Service (QoS) capabilities ought to be accommodated in ICN protocols like CCNx or NDN which employ flow-balanced Interest/Data exchanges and hop-by-hop forwarding state as their fundamental machinery. It argues that such protocols demand a substantially different approach to QoS from that taken in TCP/IP, and proposes specific design patterns to achieve both classification and differentiated QoS treatment on both a flow and aggregate basis. It also considers the effect of caches as a resource in addition to memory, CPU and link bandwidth that should be subject to explicitly unfair resource allocation. The proposed methods are intended to operate purely at the network layer, providing the primitives needed to achieve both transport and higher layer QoS objectives. It explicitly excludes any discussion of Quality of Experience (QoE) which can only be assessed and controlled at the application layer or above.  
        This document is not a product of the IRTF Information-Centric Networking Research Group (ICNRG) but has been through formal last call and has the support of the participants in the research group for publication as an individual submission. 
     " name="description">
-<meta content="xml2rfc 2.40.0" name="generator">
+<meta content="xml2rfc 2.40.1" name="generator">
 <meta content="ICN" name="keyword">
 <meta content="QoS" name="keyword">
 <meta content="congestion control" name="keyword">
@@ -1048,6 +1048,22 @@ ol.type-a { list-style-type: lower-alpha; }
 ol.type-A { list-style-type: upper-alpha; }
 ol.type-i { list-style-type: lower-roman; }
 ol.type-I { list-style-type: lower-roman; }
+/* Apply the print table and row borders in general, on request from the RPC,
+and increase the contrast between border and odd row background sligthtly */
+table {
+  border: 1px solid #ddd;
+}
+td {
+  border-top: 1px solid #ddd;
+}
+tr:nth-child(2n+1) > td {
+  background-color: #f8f8f8;
+}
+/* Use style rules to govern display of the TOC. */
+@media screen and (max-width: 1023px) {
+  #toc nav { display: none; }
+  #toc.active nav { display: block; }
+}
 </style>
 <link href="rfc-local.css" rel="stylesheet" type="text/css">
 </head>
@@ -1061,7 +1077,7 @@ ol.type-I { list-style-type: lower-roman; }
 </tr></thead>
 <tfoot><tr>
 <td class="left">Oran</td>
-<td class="center">Expires 27 August 2020</td>
+<td class="center">Expires 31 August 2020</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1074,12 +1090,12 @@ ol.type-I { list-style-type: lower-roman; }
 <dd class="internet-draft">draft-oran-icnrg-qosarch-04</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2020-02-24" class="published">24 February 2020</time>
+<time datetime="2020-02-28" class="published">28 February 2020</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2020-08-27">27 August 2020</time></dd>
+<dd class="expires"><time datetime="2020-08-31">31 August 2020</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1114,7 +1130,7 @@ ol.type-I { list-style-type: lower-roman; }
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 27 August 2020.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 31 August 2020.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1840,45 +1856,13 @@ Consumers can have indirect control over caching by specifying QoS treatments in
 </address>
 </section>
 </div>
-<script>var toc = document.getElementById("toc");
-var tocToggle = toc.querySelector("h2");
-var tocNav = toc.querySelector("nav");
-
-// mobile menu toggle
-tocToggle.onclick = function(event) {
-    if (window.innerWidth < 1024) {
- var tocNavDisplay = tocNav.currentStyle ? tocNav.currentStyle.display : getComputedStyle(tocNav, null).display;
- if (tocNavDisplay == "none") {
-     tocNav.style.display = "block";
- } else {
-     tocNav.style.display = "none";
- }
-    }
-}
-
-// toc anchor scroll to anchor
-tocNav.addEventListener("click", function (event) {
-    event.preventDefault();
-    if (event.target.nodeName == 'A') {
- if (window.innerWidth < 1024) {
-     tocNav.style.display = "none";
- }
- var href = event.target.getAttribute("href");
- var anchorId = href.substr(1);
- var anchor =  document.getElementById(anchorId);
- anchor.scrollIntoView(true);
- window.history.pushState("","",href);
-    }
+<script>const toc = document.getElementById("toc");
+toc.querySelector("h2").addEventListener("click", e => {
+  toc.classList.toggle("active");
 });
-
-// switch toc mode when window resized
-window.onresize = function () {
-    if (window.innerWidth < 1024) {
- tocNav.style.display = "none";
-    } else {
- tocNav.style.display = "block";
-    }
-}
+toc.querySelector("nav").addEventListener("click", e => {
+  toc.classList.remove("active");
+});
 </script>
 </body>
 </html>
