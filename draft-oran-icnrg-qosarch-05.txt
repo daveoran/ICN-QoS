@@ -4,8 +4,8 @@
 
 ICNRG                                                            D. Oran
 Internet-Draft                       Network Systems Research and Design
-Intended status: Informational                            19 August 2020
-Expires: 20 February 2021
+Intended status: Informational                            20 August 2020
+Expires: 21 February 2021
 
 
  Considerations in the development of a QoS Architecture for CCNx-like
@@ -53,12 +53,12 @@ Status of This Memo
 
 
 
-Oran                    Expires 20 February 2021                [Page 1]
+Oran                    Expires 21 February 2021                [Page 1]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
-   This Internet-Draft will expire on 20 February 2021.
+   This Internet-Draft will expire on 21 February 2021.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Oran                    Expires 20 February 2021                [Page 2]
+Oran                    Expires 21 February 2021                [Page 2]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
@@ -148,8 +148,8 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
    This document proposes specific design patterns to achieve both flow
    classification and differentiated QoS treatment for ICN on both a
-   flow and aggregate basis.  It also considers the effect of caches as
-   a resource in addition to memory, CPU and link bandwidth that should
+   flow and aggregate basis.  It also considers the effect of caches in
+   addition to memory, CPU and link bandwidth as a resource that should
    be subject to explicitly unfair resource allocation.  The proposed
    methods are intended to operate purely at the network layer,
    providing the primitives needed to achieve both transport and higher
@@ -165,7 +165,7 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
 
-Oran                    Expires 20 February 2021                [Page 3]
+Oran                    Expires 21 February 2021                [Page 3]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
@@ -221,7 +221,7 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
 
-Oran                    Expires 20 February 2021                [Page 4]
+Oran                    Expires 21 February 2021                [Page 4]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
@@ -260,10 +260,11 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
    are two major considerations, one technical, the other economic/
    political:
 
-   *  Some signaled QoS schemes, such as RSVP [RFC2205], maintain state
-      in routers for each flow, which scales linearly with the number of
-      flows.  For core routers through which pass millions to billions
-      of flows, the memory required is infeasible to provide.
+   *  Some signaled QoS schemes, such as RSVP (Resource reSerVation
+      Protocol) [RFC2205], maintain state in routers for each flow,
+      which scales linearly with the number of flows.  For core routers
+      through which pass millions to billions of flows, the memory
+      required is infeasible to provide.
 
    *  The Internet is comprised of many minimally cooperating autonomous
       systems [AS].  There are practically no successful examples of QoS
@@ -271,17 +272,19 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
       providers.  This in almost all cases limits the applicability of
       QoS capabilities to be intra-domain.
 
-   While this document adopts the narrow definition of QoS as _managed
-   unfairness_, much of the networking literature uses the term more
-   colloquially as applying to any mechanism that improves overall
 
 
 
-Oran                    Expires 20 February 2021                [Page 5]
+
+
+Oran                    Expires 21 February 2021                [Page 5]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
+   While this document adopts the narrow definition of QoS as _managed
+   unfairness_, much of the networking literature uses the term more
+   colloquially as applying to any mechanism that improves overall
    performance.  Readers assuming this broader context will find a large
    class of proven techniques to be ignored.  This is intentional.
    Among these are seamless producer mobility schemes like MAPME
@@ -326,18 +329,19 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
    possible including controlled flooding and adaptive learning based on
    prior history.
 
-   Each Interest message leaves a trail of "breadcrumbs" as state in
-   each forwarder.  This state, held in a data structure known as a
-   _Pending Interest Table (PIT)_ is used to forward the returning Data
-   message to the consumer.  Since the PIT constitutes per-packet state
 
 
 
-Oran                    Expires 20 February 2021                [Page 6]
+
+Oran                    Expires 21 February 2021                [Page 6]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
+   Each Interest message leaves a trail of "breadcrumbs" as state in
+   each forwarder.  This state, held in a data structure known as a
+   _Pending Interest Table (PIT)_ is used to forward the returning Data
+   message to the consumer.  Since the PIT constitutes per-packet state
    it is therefore a large consumer of memory resources especially in
    forwarders carrying high traffic loads over long RTT paths, and hence
    plays a substantial role as a QoS-controllable resource in ICN
@@ -382,18 +386,18 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
    can be used to optimize resource allocation for data returning on the
    inverse path, such as bandwidth sharing, prioritization and overload
    control.  In current designs, this allocation is often done using
-   Interest counting.  By accepting one Interest packet from a
-   downstream node, implicitly this provides a guarantee (either hard or
-   soft) that there is sufficient bandwidth on the inverse direction of
-   the link to send back one Data packet.  A number of congestion
 
 
 
-Oran                    Expires 20 February 2021                [Page 7]
+Oran                    Expires 21 February 2021                [Page 7]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
+   Interest counting.  By accepting one Interest packet from a
+   downstream node, implicitly this provides a guarantee (either hard or
+   soft) that there is sufficient bandwidth on the inverse direction of
+   the link to send back one Data packet.  A number of congestion
    control schemes have been developed for ICN that operate in this
    fashion, for example [Wang2013], [Mahdian2016], [Song2018],
    [Carofiglio2012].  Other schemes, like [Schneider2016] neither count
@@ -436,19 +440,19 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
        to be spread more accurately among the Interest/Data flows
        traversing a link sending congestion signals.
 
-   A useful discussion of these properties and how they demonstrate the
-   advantages of ICN approaches to congestion control can be found in
-   [Carofiglio2016]
 
 
 
 
 
-
-Oran                    Expires 20 February 2021                [Page 8]
+Oran                    Expires 21 February 2021                [Page 8]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
+
+   A useful discussion of these properties and how they demonstrate the
+   advantages of ICN approaches to congestion control can be found in
+   [Carofiglio2016]
 
 4.  What can we control to achieve QoS in ICN?
 
@@ -495,17 +499,16 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
    them to be _aggregated_, trading off accuracy in policing traffic
    against ability to scale.
 
-   Second, the flexibility of expressible treatments can be tightly
-   constrained by both protocol encoding and algorithmic limitations.
-   The ability to encode the treatment requests in the protocol can be
 
 
-
-Oran                    Expires 20 February 2021                [Page 9]
+Oran                    Expires 21 February 2021                [Page 9]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
+   Second, the flexibility of expressible treatments can be tightly
+   constrained by both protocol encoding and algorithmic limitations.
+   The ability to encode the treatment requests in the protocol can be
    limited (as it is for IP - there are only 6 of the Type of Service
    (TOS) bits available for Diffserv treatments), but as or more
    important is whether there are practical traffic policing, queuing,
@@ -554,10 +557,7 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
 
-
-
-
-Oran                    Expires 20 February 2021               [Page 10]
+Oran                    Expires 21 February 2021               [Page 10]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
@@ -591,15 +591,15 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
    adress+port and destination multicast address+port.
 
    With Intserv, the Resource ReSerVation signaling protocol (RSVP)
-   [RFC2205] carries two data structures, the FLOWSPEC and the TSPEC.
-   The former fulfills the requirement to identify the equivalence class
-   to which the QoS being signaled applies.  The latter comprises the
-   desired QoS treatment along with a description of the dynamic
-   character of the traffic (e.g. average bandwidth and delay, peak
-   bandwidth, etc.).  Both of these encounter substantial scaling
-   limits, which has meant that Intserv has historically been limited to
-   confined topologies, and/or high-value usages, like traffic
-   engineering.
+   [RFC2205] carries two data structures, the Flow Specifier (FLOWSPEC)
+   and the Traffic Specifier (TSPEC).  The former fulfills the
+   requirement to identify the equivalence class to which the QoS being
+   signaled applies.  The latter comprises the desired QoS treatment
+   along with a description of the dynamic character of the traffic
+   (e.g. average bandwidth and delay, peak bandwidth, etc.).  Both of
+   these encounter substantial scaling limits, which has meant that
+   Intserv has historically been limited to confined topologies, and/or
+   high-value usages, like traffic engineering.
 
    With Diffserv, the protocol encoding (6 bits in the TOS field of the
    IP header) artificially limits the number of classes one can specify.
@@ -613,7 +613,7 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
 
-Oran                    Expires 20 February 2021               [Page 11]
+Oran                    Expires 21 February 2021               [Page 11]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
@@ -641,7 +641,7 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
    particular subsets of the data.  Some degree of finer granularity is
    possible with IPv6 by exploiting the ability to use up to 64 bits of
    address for classifying traffic.  In fact, the hICN project
-   ([I-D.muscariello-intarea-hicn]), while adopting the request-response
+   [I-D.muscariello-intarea-hicn], while adopting the request-response
    model of CCNx, uses IPv6 addresses as the available namespace, and
    IPv6 packets (plus "fake" TCP headers) as the wire format.
 
@@ -662,14 +662,14 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
    applied to multi-destination and multi-path environments in a
    straightforward manner, rather than requiring either multicast with
    coarse class-based scheduling or complex signaling like that in RSVP-
-   TE [RFC3209] that is needed to make point-to-multipoint MPLS work.
+   TE [RFC3209] that is needed to make point-to-multipoint Muti-Protocol
+   Label Switching (MPLS) work.
 
 
 
 
 
-
-Oran                    Expires 20 February 2021               [Page 12]
+Oran                    Expires 21 February 2021               [Page 12]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
@@ -681,7 +681,8 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
    Intserv, for example, requires flow signaling with state O(#flows).
    ICN, even worst case, requires state O(#active Interest/Data
    exchanges), since state can be instantiated on arrival of an
-   Interest, and removed lazily once the data has been returned.
+   Interest, and removed (perhaps lazily) once the data has been
+   returned.
 
 6.3.  Specification of QoS treatments
 
@@ -705,7 +706,7 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
    *  Trying multiple paths to multiple content sources either in
       parallel or serially
 
-   *  Higher precedence for short-term caching to recover from
+   *  Assign higher precedence for short-term caching to recover from
       downstream^(*) errors
 
    *  Coordinating cache utilization with forwarding resources
@@ -724,8 +725,7 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
 
-
-Oran                    Expires 20 February 2021               [Page 13]
+Oran                    Expires 21 February 2021               [Page 13]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
@@ -742,8 +742,8 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
    Stateless forwarding and asymmetric routing in IP limits available
    state/feedback to manage link resources.  In contrast, NDN or CCNx
    forwarding allows all link resource allocation to occur as part of
-   Interest forwarding, potentially simplifying things considerably.
-   For example, with symmetric routing, producers have no control over
+   Interest forwarding, potentially simplifying things considerably.  In
+   particular, with symmetric routing, producers have no control over
    the paths their data packets traverse, and hence any QoS treatments
    intended to influence routing paths from producer to consumer will
    have no effect.
@@ -781,7 +781,7 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
 
-Oran                    Expires 20 February 2021               [Page 14]
+Oran                    Expires 21 February 2021               [Page 14]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
@@ -837,7 +837,7 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
 
-Oran                    Expires 20 February 2021               [Page 15]
+Oran                    Expires 21 February 2021               [Page 15]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
@@ -893,7 +893,7 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
 
-Oran                    Expires 20 February 2021               [Page 16]
+Oran                    Expires 21 February 2021               [Page 16]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
@@ -949,7 +949,7 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
 
-Oran                    Expires 20 February 2021               [Page 17]
+Oran                    Expires 21 February 2021               [Page 17]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
@@ -1005,7 +1005,7 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
 
-Oran                    Expires 20 February 2021               [Page 18]
+Oran                    Expires 21 February 2021               [Page 18]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
@@ -1061,7 +1061,7 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
 
-Oran                    Expires 20 February 2021               [Page 19]
+Oran                    Expires 21 February 2021               [Page 19]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
@@ -1102,10 +1102,10 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
    model of ICN makes performing admission control particularly tricky.
    Just to illustrate:
 
-   *  Forwarding paths are not confined to single paths (or a few ECMP
-      equivalent paths) as they are with IP, making it difficult to know
-      where to install state in advance of the arrival of an Interest to
-      forward.
+   *  Forwarding next-hop selection is not confined to single paths (or
+      a few ECMP equivalent paths) as it is with IP, making it difficult
+      to know where to install state in advance of the arrival of an
+      Interest to forward.
 
    *  As with point-to-multipoint complexities when using RSVP for MPLS-
       TE, state has to be installed to multiple producers over multiple
@@ -1117,7 +1117,7 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
 
-Oran                    Expires 20 February 2021               [Page 20]
+Oran                    Expires 21 February 2021               [Page 20]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
@@ -1133,7 +1133,7 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
    designs in earlier network architectures that were capable of
    performing admission control piggybacked on packet transmission.
 
-   (The earliest example the author is aware of is [Autonet]).
+      |  (The earliest example the author is aware of is [Autonet]).
 
    Such a scheme might have the following general shape *(warning:
    serious hand waving follows!)*:
@@ -1173,7 +1173,7 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
 
-Oran                    Expires 20 February 2021               [Page 21]
+Oran                    Expires 21 February 2021               [Page 21]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
@@ -1229,7 +1229,7 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
 
-Oran                    Expires 20 February 2021               [Page 22]
+Oran                    Expires 21 February 2021               [Page 22]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
@@ -1285,7 +1285,7 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
 
-Oran                    Expires 20 February 2021               [Page 23]
+Oran                    Expires 21 February 2021               [Page 23]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
@@ -1341,7 +1341,7 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
 
-Oran                    Expires 20 February 2021               [Page 24]
+Oran                    Expires 21 February 2021               [Page 24]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
@@ -1397,7 +1397,7 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
 
-Oran                    Expires 20 February 2021               [Page 25]
+Oran                    Expires 21 February 2021               [Page 25]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
@@ -1453,7 +1453,7 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
 
-Oran                    Expires 20 February 2021               [Page 26]
+Oran                    Expires 21 February 2021               [Page 26]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
@@ -1509,7 +1509,7 @@ Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
 
 
-Oran                    Expires 20 February 2021               [Page 27]
+Oran                    Expires 21 February 2021               [Page 27]
 
 Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
 
@@ -1565,4 +1565,4 @@ Author's Address
 
 
 
-Oran                    Expires 20 February 2021               [Page 28]
+Oran                    Expires 21 February 2021               [Page 28]
