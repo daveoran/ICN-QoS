@@ -535,68 +535,79 @@ Consider anticipatory allocation for reverse traffic (e.g. phone-home interactio
         <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.draft-anilj-icnrg-dnc-qos-icn-01.xml"/>
         <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.draft-oran-icnrg-flowbalance-02.xml"/>
         <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.draft-irtf-nwcrg-nwc-ccn-reqs-02.xml"/>
+        
         <reference anchor="Mahdian2016" target="http://conferences2.sigcomm.org/acm-icn/2016/proceedings/p1-mahdian.pdf">
           <front>
-            <title>"MIRCC: Multipath-aware ICN Rate-based Congestion Control," in Proceedings of the 3rd ACM Conference on Information-Centric Networking</title>
+            <title>MIRCC: Multipath-aware ICN Rate-based Congestion Control</title>
             <seriesInfo name="DOI" value="10.1145/2984356.2984365"/>
             <author surname="Mahdian" initials="M."/>
             <author surname="Arianfar" initials="S."/>
             <author surname="Gibson" initials="J."/>
             <author surname="Oran" initials="D."/>
-            <date year="2016"/>
+            <date year="2016" month="September"/>
           </front>
+          <refcontent>in Proceedings of the 3rd ACM Conference on Information-Centric Networking</refcontent>
         </reference>
+        
         <reference anchor="Carofiglio2016" target="https://doi.org/10.1016/j.comnet.2016.09.012">
           <front>
-            <title>"Optimal multipath congestion control and request forwarding in information-centric networks: Protocol design and experimentation," in Computer Networks, Vol. 110 No. 9, December 2016</title>
+            <title>Optimal multipath congestion control and request forwarding in information-centric networks: Protocol design and experimentation</title>
             <seriesInfo name="DOI" value="10.1145/2377677.2377772"/>
             <author surname="Carofiglio" initials="G."/>
             <author surname="Gallo" initials="M."/>
             <author surname="Muscariello" initials="L."/>
-            <date year="2016"/>
+            <date year="2016" month="December"/>
           </front>
+          <refcontent>in Computer Networks, Vol. 110 No. 9, December 2016</refcontent>
         </reference>
+        
         <reference anchor="Carofiglio2012" target="http://conferences.sigcomm.org/sigcomm/2012/paper/icn/p37.pdf">
           <front>
-            <title>"Joint hop-by-hop and receiver-driven Interest control protocol for content-centric networks," in ICN Workshop at SIGcomm 2012</title>
+            <title>Joint hop-by-hop and receiver-driven Interest control protocol for content-centric networks</title>
             <seriesInfo name="DOI" value="10.1016/j.comnet.2016.09.012"/>
             <author surname="Carofiglio" initials="G."/>
             <author surname="Gallo" initials="M."/>
             <author surname="Muscariello" initials="L."/>
-            <date year="2012"/>
+            <date year="2012" month="September"/>
           </front>
+          <refcontent>in ACM SIGCOMM Computer Communication Review, September 2012</refcontent>
         </reference>
+        
         <reference anchor="Wang2013" target="http://conferences.sigcomm.org/sigcomm/2013/papers/icn/p55.pdf">
           <front>
-            <title>
-				"An Improved Hop-by-hop Interest Shaper for Congestion Control in Named Data Networking," in ACM SIGCOMM Workshop on Information-Centric Networking
-            </title>
+            <title>An Improved Hop-by-hop Interest Shaper for Congestion Control in Named Data Networking</title>
             <seriesInfo name="DOI" value="10.1145/2534169.2491233"/>
             <author surname="Wang" initials="Y."/>
             <author surname="Rozhnova" initials="N."/>
             <author surname="Narayanan" initials="A."/>
             <author surname="Oran" initials="D."/>
             <author surname="Rhee" initials="I."/>
-            <date year="2013"/>
+            <date year="2013" month="August"/>
           </front>
+          <refcontent>in ICN '13: Proceedings of the 3rd ACM SIGCOMM workshop on Information-centric networking, August 2013</refcontent>
         </reference>
+        
         <reference anchor="Song2018" target="https://conferences.sigcomm.org/acm-icn/2018/proceedings/icn18-final62.pdf">
           <front>
-            <title>"SMIC: Subflow-level Multi-path Interest Control for Information Centric Networking," in 5th ACM Conference on Information-Centric Networking</title>
+            <title>SMIC: Subflow-level Multi-path Interest Control for Information Centric Networking</title>
             <seriesInfo name="DOI" value="10.1145/3267955.3267971"/>
             <author surname="Song" initials="J."/>
             <author surname="Lee" initials="M."/>
             <author surname="Kwon" initials="T."/>
-            <date year="2018"/>
+            <date year="2018" month="September"/>
           </front>
+          <refcontent>ICN '18: Proceedings of the 5th ACM Conference on Information-Centric Networking</refcontent>
         </reference>
+        
         <reference anchor="Oran2018QoSslides" target="https://datatracker.ietf.org/meeting/interim-2018-icnrg-03/materials/slides-interim-2018-icnrg-03-sessa-thoughts-on-qos-for-ndnccn-style-icn-protocol-architectures">
           <front>
-            <title>Thoughts on Quality of Service for NDN/CCN- style ICN protocol architectures, presented at ICNRG Interim Meeting, Cambridge MA</title>
+            <title>Thoughts on Quality of Service for NDN/CCN-style ICN protocol architectures</title>
             <author surname="Oran" initials="D." fullname="Dave Oran"/>
             <date year="2018" month="September" day="24"/>
           </front>
+          <refcontent>presented at ICNRG Interim Meeting, Cambridge MA</refcontent>
         </reference>
+        
         <reference anchor="NDNTutorials" target="https://named-data.net/publications/tutorials/">
           <front>
             <title>NDN Tutorials</title>
@@ -604,6 +615,7 @@ Consider anticipatory allocation for reverse traffic (e.g. phone-home interactio
             <date>various</date>
           </front>
         </reference>
+        
         <reference anchor="NDN" target="https://named-data.net/project/execsummary/">
           <front>
             <title>Named Data Networking</title>
@@ -611,6 +623,7 @@ Consider anticipatory allocation for reverse traffic (e.g. phone-home interactio
             <date>various</date>
           </front>
         </reference>
+        
         <reference anchor="minmaxfairness" target="https://en.wikipedia.org/wiki/Max-min_fairness">
           <front>
             <title>Max-min Fairness</title>
@@ -618,6 +631,7 @@ Consider anticipatory allocation for reverse traffic (e.g. phone-home interactio
             <date>no date</date>
           </front>
         </reference>
+        
         <reference anchor="proportionalfairness" target="https://en.wikipedia.org/wiki/Proportionally_fair">
           <front>
             <title>Proportionally Fair</title>
@@ -625,6 +639,7 @@ Consider anticipatory allocation for reverse traffic (e.g. phone-home interactio
             <date>no date</date>
           </front>
         </reference>
+        
         <reference anchor="AS" target="https://en.wikipedia.org/wiki/Autonomous_system_(Internet)">
           <front>
             <title>Autonomous System (Internet)</title>
@@ -632,46 +647,55 @@ Consider anticipatory allocation for reverse traffic (e.g. phone-home interactio
             <date>no date</date>
           </front>
         </reference>
+        
         <reference anchor="Shenker2006" target="https://dl.acm.org/citation.cfm?id=2316898">
           <front>
-            <title>"Fundamental Design Issues for the Future Internet," in IEEE Journal on Selected Areas in Communications</title>
+            <title>Fundamental Design Issues for the Future Internet</title>
             <seriesInfo name="DOI" value="10.1109/49.414637"/>
             <author surname="Shenker" initials="S."/>
-            <date year="2006"/>
+            <date year="2006" month="September"/>
           </front>
+          <refcontent>in IEEE Journal on Selected Areas in Communications, Vol. 13, No. 7</refcontent>
         </reference>
+        
         <reference anchor="Wang2000" target="https://ieeexplore.ieee.org/document/819168?arnumber=819168">
           <front>
-            <title>"Multicast routing and its QoS extension: problems, algorithms, and protocols," in IEEE Network, Vol:14, No:1</title>
+            <title>Multicast routing and its QoS extension: problems, algorithms, and protocols</title>
             <seriesInfo name="DOI" value="10.1109/65.819168"/>
             <author surname="Wang" initials="B."/>
             <author surname="Hou" initials="J.C."/>
-            <date year="2000"/>
+            <date year="2000" month="January"/>
           </front>
+          <refcontent>in IEEE Network, Vol:14, Issue:1, Jan/Feb 2000</refcontent>
         </reference>
+        
         <reference anchor="Tseng2003" target="https://onlinelibrary.wiley.com/doi/abs/10.1002/net.10084">
           <front>
-            <title>"The performance of QoS-aware IP multicast routing protocols,"" in Networks, Vol:42, No:2</title>
+            <title>The performance of QoS-aware IP multicast routing protocols</title>
             <seriesInfo name="DOI" value="10.1002/net.10084"/>
             <author surname="Tseng" initials="CH.J."/>
             <date year="2003" month="September"/>
           </front>
+          <refcontent>in Networks, Vol:42, No:2</refcontent>
         </reference>
+        
         <reference anchor="Krol2018" target="https://conferences.sigcomm.org/acm-icn/2018/proceedings/icn18-final9.pdf">
           <front>
-            <title>"RICE: Remote Method Invocation in ICN," in Proceedings of the 5th ACM Conference on Information-Centric Networking - ICN '18</title>
+            <title>RICE: Remote Method Invocation in ICN</title>
             <seriesInfo name="DOI" value="10.1145/3267955.3267956"/>
-            <author surname="Krol" initials="M."/>
-            <author surname="Habak" initials="K."/>
-            <author surname="Oran" initials="D."/>
-            <author surname="Kutscher" initials="D."/>
-            <author surname="Psaras" initials="I."/>
+            <author surname="Król" initials="M." fullname="Michał Król" asciiSurname="Krol" asciiFullname="Michal Krol"/>
+            <author surname="Habak" initials="K." fullname="Karim Habak"/>
+            <author surname="Oran" initials="D." fullname="David Oran"/>
+            <author surname="Kutscher" initials="D." fullname="Dirk Kutscher"/>
+            <author surname="Psaras" initials="I." fullname="Ioannis Psaras"/>
             <date year="2018" month="September"/>
           </front>
+          <refcontent>in ICN'18: Proceedings of the 5th ACM Conference on Information-Centric Networking September 21-23, 2018, Boston, MA, USA</refcontent>
         </reference>
+        
         <reference anchor="BenAbraham2018" target="https://conferences.sigcomm.org/acm-icn/2018/proceedings/icn18-final31.pdf">
           <front>
-            <title>"Decoupling Information and Connectivity via Information-Centric Transport," in 5th ACM Conference on Information-Centric Networking (ICN '18), September 21-23, 2018, Boston, MA, USA</title>
+            <title>"Decoupling Information and Connectivity via Information-Centric Transport</title>
             <seriesInfo name="DOI" value="10.1145/3267955.3267963"/>
             <author surname="Ben Abraham" initials="H."/>
             <author surname="Parwatikar" initials="J."/>
@@ -680,22 +704,26 @@ Consider anticipatory allocation for reverse traffic (e.g. phone-home interactio
             <author surname="Crowley" initials="P."/>
             <date year="2018" month="September"/>
           </front>
+          <refcontent>in ICN '18: Proceedings of the 5th ACM Conference on Information-Centric Networking September 21-23, 2018, Boston, MA, USA</refcontent>
         </reference>
+        
         <reference anchor="Schneider2016" target="http://conferences2.sigcomm.org/acm-icn/2016/proceedings/p21-schneider.pdf">
           <front>
-            <title>"A Practical Congestion Control Scheme for Named Data Networking,"" in Proceedings of the 2016 conference on 3rd ACM Conference on Information-Centric Networking - ACM-ICN '16</title>
+            <title>"A Practical Congestion Control Scheme for Named Data Networking</title>
             <seriesInfo name="DOI" value="10.1145/2984356.2984369"/>
             <author surname="Schneider" initials="K."/>
             <author surname="Yi" initials="C."/>
             <author surname="Zhang" initials="B."/>
             <author surname="Zhang" initials="L."/>
-            <date year="2016"/>
+            <date year="2016" month="September"/>
           </front>
+          <refcontent>in ACM-ICN '16: Proceedings of the 3rd ACM Conference on Information-Centric Networking</refcontent>
         </reference>
+        
         <reference anchor="Autonet" target="https://www.hpl.hp.com/techreports/Compaq-DEC/SRC-RR-59.pdf">
           <front>
             <title>Autonet: a High-speed, Self-configuring Local Area Network Using Point-to-point Links</title>
-            <seriesInfo name="SRC Research Reports" value="59"/>
+            <seriesInfo name="DOI" value="10.1109/49.105178"/>
             <author surname="Schroeder" initials="M."/>
             <author surname="Birrell" initials="A."/>
             <author surname="Burrows" initials="M."/>
@@ -704,21 +732,25 @@ Consider anticipatory allocation for reverse traffic (e.g. phone-home interactio
             <author surname="Rodeheffer" initials="T."/>
             <author surname="Satterthwaite" initials="E."/>
             <author surname="Thacker" initials="C."/>
-            <date year="1990" month="April"/>
+            <date year="1991" month="October"/>
           </front>
+          <refcontent>in IEEE Journal on Selected Areas in Communications ( Volume: 9, Issue: 8, Oct 1991)</refcontent>
         </reference>
+        
         <reference anchor="Moiseenko2017" target="https://conferences.sigcomm.org/acm-icn/2017/proceedings/icn17-2.pdf">
           <front>
-            <title>"Path Switching in Content Centric and Named Data Networks,"" in 4th ACM Conference on Information-Centric Networking (ICN 2017)</title>
+            <title>Path Switching in Content Centric and Named Data Networks</title>
             <seriesInfo name="DOI" value="10.1145/3125719.3125721"/>
             <author surname="Moiseenko" initials="I."/>
             <author surname="Oran" initials="D."/>
             <date year="2017" month="September"/>
           </front>
+          <refcontent>in ICN '17: Proceedings of the 4th ACM Conference on Information-Centric Networking</refcontent>
         </reference>
+        
         <reference anchor='Auge2018' target='https://ieeexplore.ieee.org/document/8267132'>
 			<front>
-				<title>"MAP-Me: Managing Anchor-Less Producer Mobility in Content-Centric Networks," in IEEE Transactions on Network, Volume 15, Issue 2</title>
+				<title>MAP-Me: Managing Anchor-Less Producer Mobility in Content-Centric Networks</title>
 				<author surname='Augé' initials='J.' fullname='Jordan Augé' asciiFullname="Jordan Auge" asciiSurname="Auge"/>
 				<author surname='Carofiglio' initials='G.' fullname='Giovanna Carofiglio'/>
 				<author initials='G.' surname='Grassi'/>
@@ -728,6 +760,7 @@ Consider anticipatory allocation for reverse traffic (e.g. phone-home interactio
 				<date month='June' year='2018'/>
 			</front>
 			<seriesInfo name='DOI' value='10.1109/TNSM.2018.2796720'/>
+			<refcontent>in IEEE Transactions on Network and Service Management (Volume: 15 , Issue: 2 , June 2018)</refcontent>
 		</reference>
 
       </references>
