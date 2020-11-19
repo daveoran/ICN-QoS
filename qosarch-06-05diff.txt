@@ -1,0 +1,564 @@
+7,8c7,8
+< Intended status: Informational                          19 November 2020
+< Expires: 23 May 2021
+---
+> Intended status: Informational                            24 August 2020
+> Expires: 25 February 2021
+13c13
+<                       draft-oran-icnrg-qosarch-06
+---
+>                       draft-oran-icnrg-qosarch-05
+56c56
+< Oran                       Expires 23 May 2021                  [Page 1]
+---
+> Oran                    Expires 25 February 2021                [Page 1]
+58c58
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+---
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+61c61
+<    This Internet-Draft will expire on 23 May 2021.
+---
+>    This Internet-Draft will expire on 25 February 2021.
+80,90c80,90
+<      3.1.  Basics on how ICN protocols like NDN and CCNx work  . . .   7
+<      3.2.  Congestion Control basics relevant to ICN . . . . . . . .   8
+<    4.  What can we control to achieve QoS in ICN?  . . . . . . . . .  10
+<    5.  How does this relate to QoS in TCP/IP?  . . . . . . . . . . .  11
+<    6.  Why is ICN Different?  Can we do Better?  . . . . . . . . . .  13
+<      6.1.  Equivalence class capabilities  . . . . . . . . . . . . .  13
+<      6.2.  Topology interactions with QoS  . . . . . . . . . . . . .  13
+<      6.3.  Specification of QoS treatments . . . . . . . . . . . . .  14
+<      6.4.  ICN forwarding semantics effect on QoS  . . . . . . . . .  15
+<      6.5.  QoS interactions with Caching . . . . . . . . . . . . . .  16
+<    7.  Strawman principles for an ICN QoS architecture . . . . . . .  16
+---
+>      3.1.  Basics on how ICN protocols like NDN and CCNx work  . . .   6
+>      3.2.  Congestion Control basics relevant to ICN . . . . . . . .   7
+>    4.  What can we control to achieve QoS in ICN?  . . . . . . . . .   9
+>    5.  How does this relate to QoS in TCP/IP?  . . . . . . . . . . .  10
+>    6.  Why is ICN Different?  Can we do Better?  . . . . . . . . . .  12
+>      6.1.  Equivalence class capabilities  . . . . . . . . . . . . .  12
+>      6.2.  Topology interactions with QoS  . . . . . . . . . . . . .  12
+>      6.3.  Specification of QoS treatments . . . . . . . . . . . . .  13
+>      6.4.  ICN forwarding semantics effect on QoS  . . . . . . . . .  14
+>      6.5.  QoS interactions with Caching . . . . . . . . . . . . . .  15
+>    7.  Strawman principles for an ICN QoS architecture . . . . . . .  15
+92,98c92,98
+<            semantics?  . . . . . . . . . . . . . . . . . . . . . . .  20
+<    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  23
+<    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  23
+<    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  23
+<      10.1.  Normative References . . . . . . . . . . . . . . . . . .  23
+<      10.2.  Informative References . . . . . . . . . . . . . . . . .  23
+<    Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  29
+---
+>            semantics?  . . . . . . . . . . . . . . . . . . . . . . .  19
+>    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  22
+>    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  22
+>    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  22
+>      10.1.  Normative References . . . . . . . . . . . . . . . . . .  22
+>      10.2.  Informative References . . . . . . . . . . . . . . . . .  22
+>    Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  28
+112c112
+< Oran                       Expires 23 May 2021                  [Page 2]
+---
+> Oran                    Expires 25 February 2021                [Page 2]
+114c114
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+---
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+138c138
+<    | Independent flow directions |          Flow balance^(*)          |
+---
+>    | Independent flow directions |            Flow balance            |
+149,172d148
+<       |  ^(*)Flow Balance is a property of NDN and CCNx that ensures one
+<       |  Interest packet provokes a response of no more than one data
+<       |  packet.  Further discussion of the relevance of this to QoS can
+<       |  be found in [I-D.oran-icnrg-flowbalance]
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< Oran                       Expires 23 May 2021                  [Page 3]
+< 
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+< 
+< 
+186a163,172
+> 
+> 
+> 
+> 
+> 
+> Oran                    Expires 25 February 2021                [Page 3]
+> 
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+> 
+> 
+221,228d206
+< 
+< 
+< 
+< Oran                       Expires 23 May 2021                  [Page 4]
+< 
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+< 
+< 
+242a221,228
+> 
+> 
+> 
+> Oran                    Expires 25 February 2021                [Page 4]
+> 
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+> 
+> 
+277,284d262
+< 
+< 
+< 
+< Oran                       Expires 23 May 2021                  [Page 5]
+< 
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+< 
+< 
+297,310c275,288
+<    This document adopts a narrow definition of QoS as _managed
+<    unfairness_^(*).  However, much of the networking literature uses the
+<    term more colloquially as applying to any mechanism that improves
+<    overall performance.  One could use a different, broader definition
+<    of QoS that encompasses optimizing the allocation of network
+<    resources across all offered traffic without considering individual
+<    users' traffic.  A consequence would be the need to cover whether
+<    (and how) ICN might result in better overall performance than IP
+<    under constant resource conditions, which is a much broader goal than
+<    that attempted here.  The chosen narrower scope comports with the
+<    commonly understood meaning of "QoS" in the research community.
+<    Under this scope, and under constant resource constraints, the only
+<    way to provide traffic discrimination is in fact to sacrifice
+<    fairness.  Readers assuming the broader context will find a large
+---
+> 
+> 
+> 
+> 
+> 
+> Oran                    Expires 25 February 2021                [Page 5]
+> 
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+> 
+> 
+>    While this document adopts the narrow definition of QoS as _managed
+>    unfairness_, much of the networking literature uses the term more
+>    colloquially as applying to any mechanism that improves overall
+>    performance.  Readers assuming this broader context will find a large
+316,322d293
+<       |  ^(*)This term to explain QoS is generally ascribed to Van
+<       |  Jacobson, who in talks in the late 1990's said "[The problem we
+<       |  are solving is to] Give 'better' service to some at the expense
+<       |  of giving worse service to others.  QoS fantasies to the
+<       |  contrary, it's a zero sum game.  In other words, QoS is
+<       |  _managed unfairness_."
+< 
+331,340d301
+< 
+< 
+< 
+< 
+< 
+< Oran                       Expires 23 May 2021                  [Page 6]
+< 
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+< 
+< 
+370a332,340
+> 
+> 
+> 
+> 
+> Oran                    Expires 25 February 2021                [Page 6]
+> 
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+> 
+> 
+380,396d349
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< Oran                       Expires 23 May 2021                  [Page 7]
+< 
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+< 
+< 
+435a389,396
+> 
+> 
+> 
+> Oran                    Expires 25 February 2021                [Page 7]
+> 
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+> 
+> 
+445,452d405
+< 
+< 
+< 
+< Oran                       Expires 23 May 2021                  [Page 8]
+< 
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+< 
+< 
+486,497c439,441
+<        is commonly used on TCP/IP networks.  It also allows the rate
+<        adjustments to be spread more accurately among the Interest/Data
+<        flows traversing a link sending congestion signals.
+< 
+<    A useful discussion of these properties and how they demonstrate the
+<    advantages of ICN approaches to congestion control can be found in
+<    [Carofiglio2016]
+< 
+< 
+< 
+< 
+< 
+---
+>        is used on TCP/IP networks.  It also allows the rate adjustments
+>        to be spread more accurately among the Interest/Data flows
+>        traversing a link sending congestion signals.
+504c448
+< Oran                       Expires 23 May 2021                  [Page 9]
+---
+> Oran                    Expires 25 February 2021                [Page 8]
+506c450
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+---
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+508a453,456
+>    A useful discussion of these properties and how they demonstrate the
+>    advantages of ICN approaches to congestion control can be found in
+>    [Carofiglio2016]
+> 
+554,557d501
+<    Second, the flexibility of expressible treatments can be tightly
+<    constrained by both protocol encoding and algorithmic limitations.
+<    The ability to encode the treatment requests in the protocol can be
+< 
+560c504
+< Oran                       Expires 23 May 2021                 [Page 10]
+---
+> Oran                    Expires 25 February 2021                [Page 9]
+562c506
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+---
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+564a509,511
+>    Second, the flexibility of expressible treatments can be tightly
+>    constrained by both protocol encoding and algorithmic limitations.
+>    The ability to encode the treatment requests in the protocol can be
+613,616c560
+< 
+< 
+< 
+< Oran                       Expires 23 May 2021                 [Page 11]
+---
+> Oran                    Expires 25 February 2021               [Page 10]
+618c562
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+---
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+672c616
+< Oran                       Expires 23 May 2021                 [Page 12]
+---
+> Oran                    Expires 25 February 2021               [Page 11]
+674c618
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+---
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+728c672
+< Oran                       Expires 23 May 2021                 [Page 13]
+---
+> Oran                    Expires 25 February 2021               [Page 12]
+730c674
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+---
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+784c728
+< Oran                       Expires 23 May 2021                 [Page 14]
+---
+> Oran                    Expires 25 February 2021               [Page 13]
+786c730
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+---
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+840c784
+< Oran                       Expires 23 May 2021                 [Page 15]
+---
+> Oran                    Expires 25 February 2021               [Page 14]
+842c786
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+---
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+896c840
+< Oran                       Expires 23 May 2021                 [Page 16]
+---
+> Oran                    Expires 25 February 2021               [Page 15]
+898c842
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+---
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+952c896
+< Oran                       Expires 23 May 2021                 [Page 17]
+---
+> Oran                    Expires 25 February 2021               [Page 16]
+954c898
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+---
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+1008c952
+< Oran                       Expires 23 May 2021                 [Page 18]
+---
+> Oran                    Expires 25 February 2021               [Page 17]
+1010c954
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+---
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+1047c991
+<       protocols like [I-D.irtf-icnrg-icntraceroute].
+---
+>       protocols like [I-D.mastorakis-icnrg-icntraceroute].
+1064c1008
+< Oran                       Expires 23 May 2021                 [Page 19]
+---
+> Oran                    Expires 25 February 2021               [Page 18]
+1066c1010
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+---
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+1120c1064
+< Oran                       Expires 23 May 2021                 [Page 20]
+---
+> Oran                    Expires 25 February 2021               [Page 19]
+1122c1066
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+---
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+1176c1120
+< Oran                       Expires 23 May 2021                 [Page 21]
+---
+> Oran                    Expires 25 February 2021               [Page 20]
+1178c1122
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+---
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+1232c1176
+< Oran                       Expires 23 May 2021                 [Page 22]
+---
+> Oran                    Expires 25 February 2021               [Page 21]
+1234c1178
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+---
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+1288c1232
+< Oran                       Expires 23 May 2021                 [Page 23]
+---
+> Oran                    Expires 25 February 2021               [Page 22]
+1290c1234
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+---
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+1344c1288
+< Oran                       Expires 23 May 2021                 [Page 24]
+---
+> Oran                    Expires 25 February 2021               [Page 23]
+1346c1290
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+---
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+1353,1354c1297,1298
+<               02, 9 March 2020, <https://tools.ietf.org/html/draft-
+<               anilj-icnrg-dnc-qos-icn-02>.
+---
+>               01, 11 September 2019, <https://tools.ietf.org/html/draft-
+>               anilj-icnrg-dnc-qos-icn-01>.
+1367c1311
+<               draft-ietf-quic-transport-32, 20 October 2020,
+---
+>               draft-ietf-quic-transport-27, 21 February 2020,
+1369c1313
+<               32>.
+---
+>               27>.
+1375,1383c1319,1320
+<               icnrg-ccninfo-05, 21 September 2020,
+<               <https://tools.ietf.org/html/draft-irtf-icnrg-ccninfo-05>.
+< 
+<    [I-D.irtf-icnrg-icntraceroute]
+<               Mastorakis, S., Gibson, J., Moiseenko, I., Droms, R., and
+<               D. Oran, "ICN Traceroute Protocol Specification", Work in
+<               Progress, Internet-Draft, draft-irtf-icnrg-icntraceroute-
+<               01, 10 October 2020, <https://tools.ietf.org/html/draft-
+<               irtf-icnrg-icntraceroute-01>.
+---
+>               icnrg-ccninfo-02, 8 July 2019,
+>               <https://tools.ietf.org/html/draft-irtf-icnrg-ccninfo-02>.
+1388c1325
+<               Networking: Considerations and Challenges", Work in
+---
+>               Networking: Requirements and Challenges", Work in
+1390,1394c1327,1328
+<               04, 2 September 2020, <https://tools.ietf.org/html/draft-
+<               irtf-nwcrg-nwc-ccn-reqs-04>.
+< 
+< 
+< 
+---
+>               02, 20 September 2019, <https://tools.ietf.org/html/draft-
+>               irtf-nwcrg-nwc-ccn-reqs-02>.
+1395a1330,1336
+>    [I-D.mastorakis-icnrg-icntraceroute]
+>               Mastorakis, S., Gibson, J., Moiseenko, I., Droms, R., and
+>               D. Oran, "ICN Traceroute Protocol Specification", Work in
+>               Progress, Internet-Draft, draft-mastorakis-icnrg-
+>               icntraceroute-06, 13 February 2020,
+>               <https://tools.ietf.org/html/draft-mastorakis-icnrg-
+>               icntraceroute-06>.
+1396a1338,1340
+>    [I-D.moiseenko-icnrg-flowclass]
+>               Moiseenko, I. and D. Oran, "Flow Classification in
+>               Information Centric Networking", Work in Progress,
+1400c1344
+< Oran                       Expires 23 May 2021                 [Page 25]
+---
+> Oran                    Expires 25 February 2021               [Page 24]
+1402c1346
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+---
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+1405,1410c1349,1351
+<    [I-D.moiseenko-icnrg-flowclass]
+<               Moiseenko, I. and D. Oran, "Flow Classification in
+<               Information Centric Networking", Work in Progress,
+<               Internet-Draft, draft-moiseenko-icnrg-flowclass-06, 12
+<               July 2020, <https://tools.ietf.org/html/draft-moiseenko-
+<               icnrg-flowclass-06>.
+---
+>               Internet-Draft, draft-moiseenko-icnrg-flowclass-05, 20
+>               January 2020, <https://tools.ietf.org/html/draft-
+>               moiseenko-icnrg-flowclass-05>.
+1413,1418c1354,1358
+<               Muscariello, L., Carofiglio, G., Auge, J., Papalini, M.,
+<               and M. Sardara, "Hybrid Information-Centric Networking",
+<               Work in Progress, Internet-Draft, draft-muscariello-
+<               intarea-hicn-04, 20 May 2020,
+<               <https://tools.ietf.org/html/draft-muscariello-intarea-
+<               hicn-04>.
+---
+>               Muscariello, L., Carofiglio, G., Auge, J., and M.
+>               Papalini, "Hybrid Information-Centric Networking", Work in
+>               Progress, Internet-Draft, draft-muscariello-intarea-hicn-
+>               03, 30 October 2019, <https://tools.ietf.org/html/draft-
+>               muscariello-intarea-hicn-03>.
+1423,1425c1363,1365
+<               Internet-Draft, draft-oran-icnrg-flowbalance-04, 24 August
+<               2020, <https://tools.ietf.org/html/draft-oran-icnrg-
+<               flowbalance-04>.
+---
+>               Internet-Draft, draft-oran-icnrg-flowbalance-02, 3
+>               February 2020, <https://tools.ietf.org/html/draft-oran-
+>               icnrg-flowbalance-02>.
+1448,1460d1387
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< Oran                       Expires 23 May 2021                 [Page 26]
+< 
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+< 
+< 
+1468a1396,1404
+> 
+> 
+> 
+> 
+> Oran                    Expires 25 February 2021               [Page 25]
+> 
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+> 
+> 
+1509,1516d1444
+< 
+< 
+< 
+< Oran                       Expires 23 May 2021                 [Page 27]
+< 
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+< 
+< 
+1525a1454,1460
+> 
+> 
+> Oran                    Expires 25 February 2021               [Page 26]
+> 
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+> 
+> 
+1564,1572d1498
+< 
+< 
+< 
+< 
+< Oran                       Expires 23 May 2021                 [Page 28]
+< 
+< Internet-Draft      Thoughts on ICN QoS Architecture       November 2020
+< 
+< 
+1582a1509,1516
+> 
+> 
+> 
+> Oran                    Expires 25 February 2021               [Page 27]
+> 
+> Internet-Draft      Thoughts on ICN QoS Architecture         August 2020
+> 
+> 
+1624c1558,1568
+< Oran                       Expires 23 May 2021                 [Page 29]
+---
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> Oran                    Expires 25 February 2021               [Page 28]
