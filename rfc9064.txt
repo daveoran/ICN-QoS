@@ -9,7 +9,7 @@ ISSN: 2070-1721
 
 
  Considerations in the Development of a QoS Architecture for CCNx-Like
-                             ICN Protocols
+                Information-Centric Networking Protocols
 
 Abstract
 
@@ -44,9 +44,11 @@ Status of This Memo
    This document is a product of the Internet Research Task Force
    (IRTF).  The IRTF publishes the results of Internet-related research
    and development activities.  These results might not be suitable for
-   deployment.  Documents approved for publication by the IRSG are not
-   candidates for any level of Internet Standard; see Section 2 of RFC
-   7841.
+   deployment.  This RFC represents the individual opinion(s) of one or
+   more members of the Information-Centric Networking Research Group of
+   the Internet Research Task Force (IRTF).  Documents approved for
+   publication by the IRSG are not a candidate for any level of Internet
+   Standard; see Section 2 of RFC 7841.
 
    Information about the current status of this document, any errata,
    and how to provide feedback on it may be obtained at
@@ -118,7 +120,7 @@ Table of Contents
    +-----------------------------+------------------------------------+
    |      Asymmetric routing     |         Symmetric routing          |
    +-----------------------------+------------------------------------+
-   | Independent flow directions |          Flow balance^(*)          |
+   | Independent flow directions |   Flow balance (see note below)    |
    +-----------------------------+------------------------------------+
    |  Flows grouped by IP prefix |    Flows grouped by name prefix    |
    |           and port          |                                    |
@@ -129,10 +131,10 @@ Table of Contents
 
    Table 1: Differences between IP and ICN Relevant to QoS Architecture
 
-      |  ^(*)Flow balance is a property of NDN and CCNx that ensures one
-      |  Interest packet provokes a response of no more than one Data
-      |  packet.  Further discussion of the relevance of this to QoS can
-      |  be found in [FLOWBALANCE].
+      |  Note: Flow balance is a property of NDN and CCNx that ensures
+      |  one Interest packet provokes a response of no more than one
+      |  Data packet.  Further discussion of the relevance of this to
+      |  QoS can be found in [FLOWBALANCE].
 
    This document proposes specific design patterns to achieve both flow
    classification and differentiated QoS treatment for ICN on both a
@@ -187,10 +189,10 @@ Table of Contents
    _managed unfairness_.  Absent explicit mechanisms to decide which
    traffic to treat unfairly, most systems try to achieve some form of
    "fairness" in the allocation of resources, optimizing the overall
-   utility delivered to all offered load under the constraint of
-   available resources.  From this, it should be obvious that you cannot
-   use QoS mechanisms to create or otherwise increase resource capacity!
-   In fact, all known QoS schemes have nonzero overhead and hence may
+   utility delivered to all traffic under the constraint of available
+   resources.  From this, it should be obvious that you cannot use QoS
+   mechanisms to create or otherwise increase resource capacity!  In
+   fact, all known QoS schemes have nonzero overhead and hence may
    (albeit slightly) decrease the total resources available to carry
    user traffic.
 
@@ -244,30 +246,30 @@ Table of Contents
       QoS capabilities to be intra-domain.
 
    This document adopts a narrow definition of QoS as _managed
-   unfairness_^(*).  However, much of the networking literature uses the
-   term more colloquially, applying it to any mechanism that improves
-   overall performance.  One could use a different, broader definition
-   of QoS that encompasses optimizing the allocation of network
-   resources across all offered traffic without considering individual
-   users' traffic.  A consequence would be the need to cover whether
-   (and how) ICN might result in better overall performance than IP
-   under constant resource conditions, which is a much broader goal than
-   that attempted here.  The chosen narrower scope comports with the
-   commonly understood meaning of "QoS" in the research community.
-   Under this scope, and under constant resource constraints, the only
-   way to provide traffic discrimination is in fact to sacrifice
-   fairness.  Readers assuming the broader context will find a large
-   class of proven techniques to be ignored.  This is intentional.
-   Among these are seamless producer mobility schemes like MAP-Me
-   [Auge2018] and network coding of ICN data as discussed in
+   unfairness_ (see note below).  However, much of the networking
+   literature uses the term more colloquially, applying it to any
+   mechanism that improves overall performance.  One could use a
+   different, broader definition of QoS that encompasses optimizing the
+   allocation of network resources across all offered traffic without
+   considering individual users' traffic.  A consequence would be the
+   need to cover whether (and how) ICN might result in better overall
+   performance than IP under constant resource conditions, which is a
+   much broader goal than that attempted here.  The chosen narrower
+   scope comports with the commonly understood meaning of "QoS" in the
+   research community.  Under this scope, and under constant resource
+   constraints, the only way to provide traffic discrimination is in
+   fact to sacrifice fairness.  Readers assuming the broader context
+   will find a large class of proven techniques to be ignored.  This is
+   intentional.  Among these are seamless producer mobility schemes like
+   MAP-Me [Auge2018] and network coding of ICN data as discussed in
    [NWC-CCN-REQS].
 
-      |  ^(*)This term to explain QoS is generally ascribed to Van
-      |  Jacobson, who in talks in the late 1990s said, "[The problem we
-      |  are solving is to] Give 'better' service to some at the expense
-      |  of giving worse service to others.  QoS fantasies to the
-      |  contrary, it's a zero-sum game.  In other words, QoS is
-      |  _managed unfairness_."
+      |  Note: The term _managed unfairness_ used to explain QoS is
+      |  generally ascribed to Van Jacobson, who in talks in the late
+      |  1990s said, "[The problem we are solving is to] Give 'better'
+      |  service to some at the expense of giving worse service to
+      |  others.  QoS fantasies to the contrary, it's a zero-sum game.
+      |  In other words, QoS is _managed unfairness_."
 
    Finally, the relationship between QoS and either accounting or
    billing is murky.  Some schemes can accurately account for resource
@@ -452,10 +454,11 @@ Table of Contents
    Second, the flexibility of expressible treatments can be tightly
    constrained by both protocol encoding and algorithmic limitations.
    The ability to encode the treatment requests in the protocol can be
-   limited (as it is for IP -- there are only six of the Type of Service
-   (TOS) bits available for Diffserv treatments).  However, the ability
-   to combine practical traffic policing, queuing, and pacing algorithms
-   to support a rich set of QoS treatments is as or more important.
+   limited -- as it is for IP where there are only six of the Type of
+   Service (TOS) bits available for Diffserv treatments.  However, an
+   equal or more important issue is whether there are practical traffic
+   policing, queuing, and pacing algorithms that can be combined to
+   support a rich set of QoS treatments.
 
    The two considerations above in combination can easily be
    substantially more expressive than what can be achieved in practice
@@ -477,7 +480,7 @@ Table of Contents
      | CS capacity   |      NO     | no CS in IP                    |
      +---------------+-------------+--------------------------------+
      | Forwarder     |    MAYBE    | not needed for output-buffered |
-     | memory        |             | designs^(*)                    |
+     | memory        |             | designs (see note below)       |
      +---------------+-------------+--------------------------------+
      | Compute       |     YES     | for forwarding packets, but    |
      | capacity      |             | arguably much cheaper than ICN |
@@ -485,7 +488,7 @@ Table of Contents
 
               Table 3: IP-Related Network Element Resources
 
-      |  ^(*)In an output-buffered design, all packet buffering
+      |  Note: In an output-buffered design, all packet buffering
       |  resources are associated with the output interfaces, and
       |  neither the receiver interface nor the internal forwarding
       |  buffers can be over-subscribed.  Output-buffered switches or
@@ -588,10 +591,11 @@ Table of Contents
    ubiquity of asymmetric routes, any flow-based QoS requires state that
    is decoupled from the actual arrival of traffic and hence must be
    maintained, at least as soft state, even during quiescent periods.
-   Intserv, for example, requires flow signaling with state O(#flows).
-   ICN, even worst case, requires state O(#active Interest/Data
-   exchanges), since state can be instantiated on arrival of an Interest
-   and removed (perhaps lazily) once the data has been returned.
+   Intserv, for example, requires flow signaling on the order of
+   O(number of flows).  ICN, even worst case, requires order of O(number
+   of active Interest/Data exchanges), since state can be instantiated
+   on arrival of an Interest and removed (perhaps lazily) once the data
+   has been returned.
 
 6.3.  Specification of QoS Treatments
 
@@ -617,20 +621,20 @@ Table of Contents
       parallel or serially
 
    *  Assigning higher precedence for short-term caching to recover from
-      downstream^(*) errors
+      downstream (see note below) errors
 
    *  Coordinating cache utilization with forwarding resources
 
-      |  ^(*)_Downstream_ refers to the direction Data messages flow
+      |  Note: _Downstream_ refers to the direction Data messages flow
       |  toward the consumer (the issuer of Interests).  Conversely,
       |  _Upstream_ refers to the direction Interests flow toward the
       |  producer of data.
 
    Such mechanisms are typically described in NDN and CCNx as
-   _forwarding strategies_. However, little or no guidance is given for
-   what application actions or protocol machinery should be used to
-   decide which forwarding strategy to use for which Interests that
-   arrive at a forwarder.  See [BenAbraham2018] for an investigation of
+   _forwarding strategies_. However, there is little or no guidance for
+   which application actions or protocol machinery a forwarder should
+   use to select the appropriate forwarding strategy for arriving
+   Interest messages.  See [BenAbraham2018] for an investigation of
    these issues.  Associating forwarding strategies with the equivalence
    classes and QoS treatments directly can make them more accessible and
    useful to implement and deploy.
@@ -647,14 +651,14 @@ Table of Contents
    One complication in the handling of ICN QoS treatments is not present
    in IP and hence worth mentioning.  CCNx and NDN both perform
    _Interest aggregation_ (see Section 2.4.2 of [RFC8569]).  If an
-   arriving Interest matches an existing PIT entry but has a different
-   QoS treatment than a previously forwarded Interest, it can be tricky
-   deciding whether to aggregate or forward the Interest and determining
-   how to track the Interests' differing QoS treatments.  Exploration of
-   the details surrounding these situations is beyond the scope of this
-   document; further discussion can be found for the general case of
-   flow balance and congestion control in [FLOWBALANCE] and specifically
-   for QoS treatments in [DNC-QOS-ICN].
+   Interest arrives matching an existing PIT entry, but with a different
+   QoS treatment from an Interest already forwarded, it can be tricky to
+   decide whether to aggregate the Interest or forward it, and how to
+   keep track of the differing QoS treatments for the two Interests.
+   Exploration of the details surrounding these situations is beyond the
+   scope of this document; further discussion can be found for the
+   general case of flow balance and congestion control in [FLOWBALANCE]
+   and specifically for QoS treatments in [DNC-QOS-ICN].
 
 6.4.  ICN Forwarding Semantics Effect on QoS
 
@@ -666,7 +670,7 @@ Table of Contents
    tried serially, multi-destination with next hops used in parallel, or
    even localized flooding (e.g., directly on Layer 2 multicast
    mechanisms).  Additionally, the pull-based model of ICN avoids a
-   number of thorny multicast QoS problems that IP has ([Wang2000],
+   number of thorny multicast QoS problems that IP has (see [Wang2000],
    [RFC3170], and [Tseng2003]).
 
    The Multi-destination/multipath forwarding model in ICN changes
@@ -693,22 +697,22 @@ Table of Contents
    See [RFC8569] for the formal definitions.
 
    ICN flow classifiers, such as those in [FLOWCLASS] can be used to
-   achieve soft or hard partitioning^(*) of cache resources in the CS of
-   an ICN forwarder.  For example, cached content for a given
-   equivalence class can be considered _fate shared_ in a cache whereby
-   objects from the same equivalence class can be purged as a group
-   rather than individually.  This can recover cache space more quickly
-   and at lower overhead than pure per-object replacement when a cache
-   is under extreme pressure and in danger of thrashing.  In addition,
-   since the forwarder remembers the QoS treatment for each pending
-   Interest in its PIT, the above cache controls can be augmented by
-   policy to prefer retention of cached content for some equivalence
-   classes as part of the cache replacement algorithm.
+   achieve soft or hard partitioning (see note below) of cache resources
+   in the CS of an ICN forwarder.  For example, cached content for a
+   given equivalence class can be considered _fate shared_ in a cache
+   whereby objects from the same equivalence class can be purged as a
+   group rather than individually.  This can recover cache space more
+   quickly and at lower overhead than pure per-object replacement when a
+   cache is under extreme pressure and in danger of thrashing.  In
+   addition, since the forwarder remembers the QoS treatment for each
+   pending Interest in its PIT, the above cache controls can be
+   augmented by policy to prefer retention of cached content for some
+   equivalence classes as part of the cache replacement algorithm.
 
-      |  ^(*)With hard partitioning, there are dedicated cache resources
-      |  for each equivalence class (or enumerated list of equivalence
-      |  classes).  With soft partitioning, resources are at least
-      |  partly shared among the (sets of) equivalence classes of
+      |  Note: With hard partitioning, there are dedicated cache
+      |  resources for each equivalence class (or enumerated list of
+      |  equivalence classes).  With soft partitioning, resources are at
+      |  least partly shared among the (sets of) equivalence classes of
       |  traffic.
 
 7.  Strawman Principles for an ICN QoS Architecture
@@ -784,10 +788,10 @@ Table of Contents
       corresponding data.
 
    *  Conversely, a QoS treatment together with, or in addition to, a
-      request for short latency indicating that new data will be
-      requested soon enough that caching the current data being
-      requested would be ineffective and hence to only pay attention to
-      the caching preferences of the producer.
+      request for short latency indicating that the forwarder should
+      only pay attention to the caching preferences of the producer
+      because caching requested data would be ineffective (i.e., new
+      data will be requested shortly).
 
    *  A QoS treatment indicating that a mobile consumer will likely
       incur a mobility event within an RTT (or a few RTTs).  Such a
@@ -826,10 +830,17 @@ Table of Contents
    Diffserv*. Some of the Diffserv classes may form a good starting
    point, as their mappings onto queuing algorithms for managing link
    buffering are well understood.  However, Diffserv alone does not
-   allow one to express latency versus reliability trade-offs or other
-   useful QoS treatments, nor does it permit TSPEC-style traffic
-   descriptions as are allowed in a signaled QoS scheme.  Here are some
-   examples:
+   capture more complex QoS treatments, such as:
+
+   *  Trading off latency against reliability
+
+   *  Trading off resource usage against delivery probability through
+      controlled flooding or other forwarding mechanisms
+
+   *  Allocating resources based on rich TSPEC-like traffic descriptions
+      that appear in signaled QoS schemes like Intserv
+
+   Here are some examples:
 
    *  A "burst" treatment, where an initial Interest gives an aggregate
       data size to request allocation of link capacity for a large burst
